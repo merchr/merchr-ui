@@ -1,39 +1,36 @@
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Link
 } from "react-router-dom";
 import About from './pages/About';
 import Users from './pages/Users';
 import Home from './pages/Home';
+import Navbar from './ui/Navbar';
+import { User } from './util/types';
+import { UserContext } from './util/userContext';
+
+
 
 function App() {
-  return (
-    <Router>
-      <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/about">About</Link>
-            </li>
-            <li>
-              <Link to="/users">Users</Link>
-            </li>
-          </ul>
-        </nav>
+  const [user, setUser] = useState<User | null>(null);
 
-        <Routes>
-          <Route path="/about" element={<About />} />
-          <Route path="/users" element={<Users />} />
-          <Route path="/" element={<Home />} />
-        </Routes>
-      </div>
-    </Router>
+  const value = useMemo(() => ({ user, setUser }), [user, setUser]);
+
+  return (
+    <UserContext.Provider value={value}>
+      <Router>
+        <div>
+          <Navbar />
+          <Routes>
+            <Route path="/about" element={<About />} />
+            <Route path="/users" element={<Users />} />
+            <Route path="/" element={<Home />} />
+          </Routes>
+        </div>
+      </Router>
+    </UserContext.Provider>
   );
 }
 
