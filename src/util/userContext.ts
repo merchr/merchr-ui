@@ -4,6 +4,9 @@ import { User } from './types';
 const UserContext = createContext<{
     user: User | null;
     setUser: React.Dispatch<React.SetStateAction<User | null>>;
-} | null>(null);
+}>({
+    user: null,
+    setUser: () => {}
+});
 
 export { UserContext };

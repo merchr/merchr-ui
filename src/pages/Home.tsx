@@ -4,7 +4,7 @@ import { UserContext } from '../util/userContext';
 function Home() {
     const [data, setData] = useState();
 
-    const user = useContext(UserContext);
+    const { user } = useContext(UserContext);
 
     useEffect(() => {
         fetch('http://localhost:1337/api/products')
@@ -15,7 +15,7 @@ function Home() {
     return (
         <div>
             <pre>
-                {JSON.stringify(user?.user, null, 2)}
+                {JSON.stringify(user, null, 2)}
             </pre>
             <pre>
                 {JSON.stringify(data, null, 2)}

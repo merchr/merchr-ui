@@ -4,14 +4,12 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
-import About from './pages/About';
+import Account from './pages/Account';
 import Users from './pages/Users';
 import Home from './pages/Home';
 import Navbar from './ui/Navbar';
 import { User } from './util/types';
 import { UserContext } from './util/userContext';
-
-
 
 function App() {
   const [user, setUser] = useState<User | null>(null);
@@ -24,7 +22,7 @@ function App() {
         <div>
           <Navbar />
           <Routes>
-            <Route path="/about" element={<About />} />
+            <Route path="/account" element={<Account />} />
             <Route path="/users" element={<Users />} />
             <Route path="/" element={<Home />} />
           </Routes>
