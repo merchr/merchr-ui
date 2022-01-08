@@ -1,8 +1,17 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Box, Button, Drawer, List, ListItem, ListItemText } from "@mui/material";
+import {
+    Box,
+    Button,
+    Drawer,
+    List,
+    ListItem,
+    ListItemText,
+} from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
-import DensityMediumIcon from '@mui/icons-material/DensityMedium';
+import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
 
 function Navbar() {
     const [open, setOpen] = React.useState<boolean>(false);
@@ -10,20 +19,38 @@ function Navbar() {
     return (
         <nav>
             <div className="container">
-                <div className="row bg-primary">
-                    <div className="col">
-                        <DensityMediumIcon />
+                <div className="row align-items-center bg-primary">
+                    <div className="col px-0">
+                        <button className="btn" onClick={() => setOpen(true)}>
+                            <MenuOutlinedIcon />
+                        </button>
                     </div>
-                    <div className="col">Merchr</div>
-                    <div className="col">
-                        <div className="col">Shopping Cart Account</div>
+                    <div className="col fs-2 fw-bolder">Merchr</div>
+                    <div className="col-auto">
+                        <div className="row">
+                            <div className="col-auto px-0">
+                                <button
+                                    className="btn"
+                                    onClick={() => setOpen(true)}
+                                >
+                                    <ShoppingCartOutlinedIcon />
+                                </button>
+                            </div>
+                            <div className="col-auto px-0">
+                                <button
+                                    className="btn"
+                                    onClick={() => setOpen(true)}
+                                >
+                                    <PermIdentityOutlinedIcon />
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <React.Fragment key='drawer'>
-                <Button onClick={() => setOpen(true)}>'drawer'</Button>
+            <React.Fragment key="drawer">
                 <Drawer
-                    anchor={'left'}
+                    anchor={"left"}
                     open={open}
                     onClose={() => setOpen(false)}
                 >
@@ -31,7 +58,7 @@ function Navbar() {
                         sx={{
                             width: 250,
                         }}
-                        component={'div'}
+                        component={"div"}
                         role="presentation"
                         onClick={() => setOpen(false)}
                         onKeyDown={() => setOpen(false)}
