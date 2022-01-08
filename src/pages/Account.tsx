@@ -1,24 +1,15 @@
 import React, { useContext } from "react";
+import { Navigate } from "react-router-dom";
 import { UserContext } from "../util/userContext";
 
 function Account() {
-    const { user, setUser } = useContext(UserContext);
+    const { user } = useContext(UserContext);
 
-    return (
-        <div>
-            <button
-                onClick={() => {
-                    if (user) {
-                        setUser(null);
-                    } else {
-                        setUser({ id: 1, name: "Jogn" });
-                    }
-                }}
-            >
-                {user ? "Logout" : "Login"}
-            </button>
-        </div>
-    );
+    if (!user) {
+        return <Navigate to="/login" />;
+    }
+
+    return <div>{JSON.stringify(user, null, 2)}</div>;
 }
 
 export default Account;
