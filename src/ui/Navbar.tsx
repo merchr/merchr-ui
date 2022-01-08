@@ -15,7 +15,7 @@ function Navbar() {
 
     return (
         <nav>
-            <div className="container">
+            <div className="container-fluid">
                 <div className="row align-items-center bg-primary">
                     <div className="col px-0">
                         <button className="btn" onClick={() => setOpen(true)}>
