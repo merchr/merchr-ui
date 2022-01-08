@@ -1,20 +1,17 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-    Box,
-    Button,
-    Drawer,
-    List,
-    ListItem,
-    ListItemText,
-} from "@mui/material";
-import React from "react";
+import { Box, Drawer, List, ListItem, ListItemText } from "@mui/material";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
+import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
+import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
+import { UserContext } from "../util/userContext";
 
 function Navbar() {
     const [open, setOpen] = React.useState<boolean>(false);
+
+    const { user, setUser } = useContext(UserContext);
 
     return (
         <nav>
@@ -29,20 +26,18 @@ function Navbar() {
                     <div className="col-auto">
                         <div className="row">
                             <div className="col-auto px-0">
-                                <button
-                                    className="btn"
-                                    onClick={() => setOpen(true)}
-                                >
-                                    <ShoppingCartOutlinedIcon />
-                                </button>
+                                <Link to="/users">
+                                    <button className="btn">
+                                        <ShoppingCartOutlinedIcon />
+                                    </button>
+                                </Link>
                             </div>
                             <div className="col-auto px-0">
-                                <button
-                                    className="btn"
-                                    onClick={() => setOpen(true)}
-                                >
-                                    <PermIdentityOutlinedIcon />
-                                </button>
+                                <Link to="/account">
+                                    <button className="btn">
+                                        <PermIdentityOutlinedIcon />
+                                    </button>
+                                </Link>
                             </div>
                         </div>
                     </div>
@@ -64,28 +59,28 @@ function Navbar() {
                         onKeyDown={() => setOpen(false)}
                     >
                         <List>
-                            {["Inbox", "Starred", "Send email", "Drafts"].map(
-                                (text) => (
-                                    <ListItem button key={text}>
-                                        <ListItemText primary={text} />
-                                    </ListItem>
-                                )
+                            <Link
+                                to="/"
+                                style={{
+                                    color: "#FFFFFF",
+                                    textDecoration: "none",
+                                }}
+                            >
+                                <ListItem button>
+                                    <Inventory2OutlinedIcon className="mx-2" />
+                                    <ListItemText primary={"Products"} />
+                                </ListItem>
+                            </Link>
+                            {user && (
+                                <ListItem button onClick={() => setUser(null)}>
+                                    <LogoutOutlinedIcon className="mx-2" />
+                                    <ListItemText primary={"Log out"} />
+                                </ListItem>
                             )}
                         </List>
                     </Box>
                 </Drawer>
             </React.Fragment>
-            {/* <ul>
-                <li>
-                    <Link to="/">Home</Link>
-                </li>
-                <li>
-                    <Link to="/account">Account</Link>
-                </li>
-                <li>
-                    <Link to="/users">Users</Link>
-                </li>
-            </ul> */}
         </nav>
     );
 }
