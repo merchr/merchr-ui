@@ -9,7 +9,11 @@ function Account() {
         return <Navigate to="/login" />;
     }
 
-    return <div>{JSON.stringify(user, null, 2)}</div>;
+    return (
+        <div>
+            <pre>{JSON.stringify(user, null, 2)}</pre>
+        </div>
+    );
 }
 
 export default Account;

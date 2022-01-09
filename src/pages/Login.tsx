@@ -38,12 +38,15 @@ function Login() {
                         return;
                     }
 
-                    const { id, username, email } = response.user;
+                    const { id, username, email, address, phone } =
+                        response.user;
 
                     setUser({
                         id,
                         username,
                         email,
+                        address,
+                        phone,
                     });
                 })
             )

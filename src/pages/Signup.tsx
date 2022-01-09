@@ -1,15 +1,69 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { UserContext } from "../util/userContext";
 
 function Signup() {
     const { user, setUser } = useContext(UserContext);
 
+    const [name, setName] = useState<string>("");
+    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+    const [address, setAddress] = useState<string>("");
+    const [phone, setPhone] = useState<string>("");
+    const [error, setError] = useState<string>("");
+
     if (user) {
         return <Navigate to="/" />;
     }
 
-    const handleSubmit = () => {};
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+
+        setError("");
+
+        fetch("http://localhost:1337/api/auth/local/register", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                username: email,
+                email,
+                password,
+                address,
+                phone,
+            }),
+        })
+            .then((response) =>
+                response.json().then((response) => {
+                    if (response.error) {
+                        setError(
+                            "There was an error creating your account. Please try again."
+                        );
+
+                        return;
+                    }
+
+                    const { id, username, email, address, phone } =
+                        response.user;
+
+                    setUser({
+                        id,
+                        username,
+                        email,
+                        address,
+                        phone,
+                    });
+                })
+            )
+            .catch((error) => {
+                console.log("An error occurred:", error.response);
+
+                setError(
+                    "There was an error creating your account. Please try again."
+                );
+            });
+    };
 
     return (
         <form className="container" onSubmit={handleSubmit}>
@@ -25,6 +79,8 @@ function Signup() {
                     type="text"
                     name="name"
                     className="form-control"
+                    value={name}
+                    onChange={(event) => setName(event.target.value)}
                 />
             </div>
             <div className="m-3 row">
@@ -36,6 +92,8 @@ function Signup() {
                     type="text"
                     name="email"
                     className="form-control"
+                    value={email}
+                    onChange={(event) => setEmail(event.target.value)}
                 />
             </div>
             <div className="m-3 row">
@@ -44,35 +102,42 @@ function Signup() {
                 </label>
                 <input
                     required
-                    type="text"
+                    type="password"
                     name="password"
                     className="form-control"
-                />
-            </div>
-            <div className="m-3 row">
-                <label className="px-0 py-2" htmlFor="password2">
-                    Repeat password*
-                </label>
-                <input
-                    required
-                    type="text"
-                    name="password2"
-                    className="form-control"
+                    value={password}
+                    onChange={(event) => setPassword(event.target.value)}
                 />
             </div>
             <div className="m-3 row">
                 <label className="px-0 py-2" htmlFor="address">
                     Address
                 </label>
-                <input type="text" name="address" className="form-control" />
+                <input
+                    type="text"
+                    name="address"
+                    className="form-control"
+                    value={address}
+                    onChange={(event) => setAddress(event.target.value)}
+                />
             </div>
             <div className="m-3 row">
                 <label className="px-0 py-2" htmlFor="phone">
                     Phone number
                 </label>
-                <input type="text" name="phone" className="form-control" />
+                <input
+                    type="text"
+                    name="phone"
+                    className="form-control"
+                    value={phone}
+                    onChange={(event) => setPhone(event.target.value)}
+                />
             </div>
-
+            {error && (
+                <div className="alert alert-warning" role="alert">
+                    {error}
+                </div>
+            )}
             <div className="row my-4">
                 <div className="col mx-auto text-center">
                     <button className="btn btn-secondary" type="submit">
