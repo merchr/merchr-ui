@@ -62,13 +62,13 @@ function Navbar() {
                             <Link
                                 to="/"
                                 style={{
-                                    color: "#FFFFFF",
+                                    color: "#000000",
                                     textDecoration: "none",
                                 }}
                             >
                                 <ListItem button>
                                     <Inventory2OutlinedIcon className="mx-2" />
-                                    <ListItemText primary={"Products"} />
+                                    <ListItemText primary={"Home"} />
                                 </ListItem>
                             </Link>
                             {user && (
