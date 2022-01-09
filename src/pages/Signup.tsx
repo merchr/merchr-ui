@@ -70,7 +70,7 @@ function Signup() {
             <div className="row my-5">
                 <div className="col fs-1 mx-auto text-center">Signup</div>
             </div>
-            <div className="m-3 row">
+            <div className="m-3 row mx-auto" style={{ maxWidth: 500 }}>
                 <label className="px-0 py-2" htmlFor="name">
                     Name*
                 </label>
@@ -83,7 +83,7 @@ function Signup() {
                     onChange={(event) => setName(event.target.value)}
                 />
             </div>
-            <div className="m-3 row">
+            <div className="m-3 row mx-auto" style={{ maxWidth: 500 }}>
                 <label className="px-0 py-2" htmlFor="email">
                     Email*
                 </label>
@@ -96,7 +96,7 @@ function Signup() {
                     onChange={(event) => setEmail(event.target.value)}
                 />
             </div>
-            <div className="m-3 row">
+            <div className="m-3 row mx-auto" style={{ maxWidth: 500 }}>
                 <label className="px-0 py-2" htmlFor="password">
                     Password*
                 </label>
@@ -109,7 +109,7 @@ function Signup() {
                     onChange={(event) => setPassword(event.target.value)}
                 />
             </div>
-            <div className="m-3 row">
+            <div className="m-3 row mx-auto" style={{ maxWidth: 500 }}>
                 <label className="px-0 py-2" htmlFor="address">
                     Address
                 </label>
@@ -121,7 +121,7 @@ function Signup() {
                     onChange={(event) => setAddress(event.target.value)}
                 />
             </div>
-            <div className="m-3 row">
+            <div className="m-3 row mx-auto" style={{ maxWidth: 500 }}>
                 <label className="px-0 py-2" htmlFor="phone">
                     Phone number
                 </label>

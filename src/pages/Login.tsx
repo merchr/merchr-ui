@@ -63,7 +63,7 @@ function Login() {
                 <div className="col fs-1 mx-auto text-center">Login</div>
             </div>
 
-            <div className="m-3 row">
+            <div className="m-3 row mx-auto" style={{ maxWidth: 500 }}>
                 <label className="px-0 py-2" htmlFor="email">
                     Email
                 </label>
@@ -76,7 +76,7 @@ function Login() {
                     onChange={(event) => setEmail(event.target.value)}
                 />
             </div>
-            <div className="m-3 row">
+            <div className="m-3 row mx-auto" style={{ maxWidth: 500 }}>
                 <label className="px-0 py-2" htmlFor="password">
                     Password
                 </label>
