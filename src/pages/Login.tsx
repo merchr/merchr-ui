@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
+import { USER_EMAIL, USER_PASSWORD } from "../util/constants";
 import { UserContext } from "../util/userContext";
 
 function Login() {
@@ -27,7 +28,7 @@ function Login() {
             },
             body: JSON.stringify({
                 identifier: email,
-                password: password,
+                password,
             }),
         })
             .then((response) =>
@@ -40,6 +41,9 @@ function Login() {
 
                     const { id, username, email, address, phone } =
                         response.user;
+
+                    localStorage.setItem(USER_EMAIL, email);
+                    localStorage.setItem(USER_PASSWORD, atob(password));
 
                     setUser({
                         id,

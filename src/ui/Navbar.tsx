@@ -7,6 +7,7 @@ import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import { UserContext } from "../util/userContext";
+import { USER_EMAIL, USER_PASSWORD } from "../util/constants";
 
 function Navbar() {
     const [open, setOpen] = React.useState<boolean>(false);
@@ -72,7 +73,14 @@ function Navbar() {
                                 </ListItem>
                             </Link>
                             {user && (
-                                <ListItem button onClick={() => setUser(null)}>
+                                <ListItem
+                                    button
+                                    onClick={() => {
+                                        localStorage.removeItem(USER_EMAIL);
+                                        localStorage.removeItem(USER_PASSWORD);
+                                        setUser(null);
+                                    }}
+                                >
                                     <LogoutOutlinedIcon className="mx-2" />
                                     <ListItemText primary={"Log out"} />
                                 </ListItem>
