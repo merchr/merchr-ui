@@ -9,7 +9,7 @@ function Signup() {
         return <Navigate to="/" />;
     }
 
-    const handleSubmit = () => setUser({ id: 1, name: "John" });
+    const handleSubmit = () => {};
 
     return (
         <form className="container" onSubmit={handleSubmit}>

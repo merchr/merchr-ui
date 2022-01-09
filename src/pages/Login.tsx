@@ -1,15 +1,58 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { UserContext } from "../util/userContext";
 
 function Login() {
-    const { user, setUser } = useContext(UserContext);
+    const userContext = useContext(UserContext);
+
+    const { user, setUser } = userContext;
+
+    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+    const [error, setError] = useState<string>("");
 
     if (user) {
         return <Navigate to="/" />;
     }
 
-    const handleSubmit = () => setUser({ id: 1, name: "John" });
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+
+        setError("");
+
+        fetch("http://localhost:1337/api/auth/local", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                identifier: email,
+                password: password,
+            }),
+        })
+            .then((response) =>
+                response.json().then((response) => {
+                    if (response.error) {
+                        setError("Email or passowrd is invalid.");
+
+                        return;
+                    }
+
+                    const { id, username, email } = response.user;
+
+                    setUser({
+                        id,
+                        username,
+                        email,
+                    });
+                })
+            )
+            .catch((error) => {
+                console.log("An error occurred:", error.response);
+
+                setError("Email or passowrd is invalid.");
+            });
+    };
 
     return (
         <form className="container" onSubmit={handleSubmit}>
@@ -26,6 +69,8 @@ function Login() {
                     type="text"
                     name="email"
                     className="form-control"
+                    value={email}
+                    onChange={(event) => setEmail(event.target.value)}
                 />
             </div>
             <div className="m-3 row">
@@ -37,8 +82,15 @@ function Login() {
                     type="password"
                     name="password"
                     className="form-control"
+                    value={password}
+                    onChange={(event) => setPassword(event.target.value)}
                 />
             </div>
+            {error && (
+                <div className="alert alert-warning" role="alert">
+                    {error}
+                </div>
+            )}
 
             <div className="row my-4">
                 <div className="col mx-auto text-center">
