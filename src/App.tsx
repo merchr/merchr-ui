@@ -8,6 +8,7 @@ import { User } from "./util/types";
 import { UserContext } from "./util/userContext";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import Categories from "./pages/Categories";
 
 function App() {
     const [user, setUser] = useState<User | null>(null);
@@ -24,6 +25,7 @@ function App() {
                         <Route path="/signup" element={<Signup />} />
                         <Route path="/account" element={<Account />} />
                         <Route path="/users" element={<Users />} />
+                        <Route path="/categories" element={<Categories />} />
                         <Route path="/" element={<Home />} />
                     </Routes>
                 </div>
