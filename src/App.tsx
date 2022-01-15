@@ -8,7 +8,7 @@ import { User } from "./util/types";
 import { UserContext } from "./util/userContext";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import Categories from "./pages/Categories";
+import Products from "./pages/Products";
 import Product from "./pages/Product";
 import { USER_EMAIL, USER_PASSWORD } from "./util/constants";
 
@@ -68,7 +68,7 @@ function App() {
                         <Route path="/signup" element={<Signup />} />
                         <Route path="/account" element={<Account />} />
                         <Route path="/users" element={<Users />} />
-                        <Route path="/categories" element={<Categories />} />
+                        <Route path="/products" element={<Products />} />
                         <Route path="/product/" element={<Product />} />
                         <Route path="/" element={<Home />} />
                     </Routes>
