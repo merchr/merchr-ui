@@ -3,13 +3,15 @@ import { Product } from '../util/types';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
-import styles from './Categories.module.scss';
+import Button from '@mui/material/Button';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import styles from './Products';
 import { useLocation } from 'react-router-dom'
 
 function ProductPage() {
- 
-    const [data, setData] = React.useState<{data: Product[]}>()
-  
+
+    const [data, setData] = React.useState<{ data: Product[] }>()
+
     useEffect(() => {
         fetch('http://localhost:1337/api/products')
             .then(res => res.json())
@@ -17,17 +19,17 @@ function ProductPage() {
     }, []);
 
     const location = useLocation();
-    const categoryId = location?.state.categoryId as {categoryId: number};
+    const state = location?.state as { categoryId: number };
+    const categoryId= state.categoryId;
 
-    const products= data?.data?.filter((item:any)=>
-        item.category.id===categoryId
+    const products = data?.data?.filter((item: any) =>
+        item.category.id === categoryId
     ) || [];
-      
+
     return (
         <div className={styles.container}>
             <div className={styles.title}>Products of Category {products[0]?.category.Name}</div>
-             <ImageList cols={2} gap={40}>
-                {products?.map((item) => (
+                {products?.map((item) => (<>
                     <ImageListItem key={item.category.Name}>
                     <img
                         src={`https://images.unsplash.com/photo-1597645587822-e99fa5d45d25?w=248&fit=crop&auto=format`}
@@ -40,9 +42,16 @@ function ProductPage() {
                         subtitle={<span>{item.category.Description}</span>}
                         position="below"
                     />
+                            <div>{item?.color?.name}</div>
+                            {/* <Button variant="contained" startIcon={<AddShoppingCartIcon />} >
+                        Add to Cart
+            </Button> */}
                     </ImageListItem>
-                ))}
-                </ImageList>
+                    </>
+                    ))}
+            <Button variant="contained" startIcon={<AddShoppingCartIcon />} style={{display: "flex"}}>
+                        Add to Cart
+            </Button>
         </div>
     );
 }

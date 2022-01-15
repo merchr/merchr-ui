@@ -4,10 +4,10 @@ import { UserContext } from '../util/userContext';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
-import styles from './Categories.module.scss';
+import styles from './Products.module.scss';
 import { Link } from 'react-router-dom';
 
-function Categories() {
+function Products() {
 
     const [data, setData] = React.useState<{ data: Product[] }>();
 
@@ -49,4 +49,4 @@ function Categories() {
     );
 }
 
-export default Categories;
+export default Products;
