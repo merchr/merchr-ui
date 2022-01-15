@@ -3,7 +3,14 @@ import { Product } from '../util/types';
 import { UserContext } from '../util/userContext';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import { Button, CardActionArea, CardActions } from '@mui/material';
+
 import ImageListItemBar from '@mui/material/ImageListItemBar';
+import Grid from '@mui/material/Grid';
 import styles from './Products.module.scss';
 import { Link } from 'react-router-dom';
 
@@ -22,29 +29,44 @@ function Products() {
     const categories = data?.data?.map((item: any) =>
         item.category
     ) || [];
-    
+
     return (
         <div className={styles.container}>
-            <ImageList cols={3} gap={40}>
+            <Grid container spacing={2}>
                 {categories?.map((item) => (
-                    <ImageListItem key={item.Id}>
-                        <Link to={{
-                            pathname: '/product'
-                        }} state={{ categoryId: item.id }} style={{ textDecoration: 'none', color: "black" }}>
-                            <img
-                                src={`https://images.unsplash.com/photo-1597645587822-e99fa5d45d25?w=248&fit=crop&auto=format`}
-                                srcSet={`https://images.unsplash.com/photo-1597645587822-e99fa5d45d25?w=248&fit=crop&auto=format&dpr=2 2x`}
-                                alt={item.Name}
-                                loading="lazy"
-                            />
-                            <ImageListItemBar
-                                title={item.Name}
-                                subtitle={<span>{item.Description}</span>}
-                                position="below"
-                            /></Link>
-                    </ImageListItem>
+                    <Grid item xs={12} md={4}>
+                        <Card sx={{ maxWidth: 400 }}>
+                            <CardActionArea>
+                                <Link to={{
+                                    pathname: '/product'
+                                }} state={{ categoryId: item.id }} style={{ textDecoration: 'none', color: "black" }}>
+                                    <CardMedia
+                                        component="img"
+                                        height="140"
+                                        image="https://images.unsplash.com/photo-1597645587822-e99fa5d45d25?w=248&fit=crop&auto=format"
+                                        alt="green iguana"
+                                    />
+                                    <CardContent>
+                                        <Typography gutterBottom variant="h5" component="div">
+                                            {item.Name}
+                                        </Typography>
+                                        <Typography variant="body2" color="text.secondary">
+                                            {item.Description}
+                                        </Typography>
+                                    </CardContent>
+                                    </Link>
+                                 </CardActionArea>
+                                <CardActions>
+                                    <Button size="small" color="primary">
+                                        Share
+                                    </Button>
+                                </CardActions>
+     
+                        </Card>
+
+                    </Grid>
                 ))}
-            </ImageList>
+            </Grid>
         </div>
     );
 }
