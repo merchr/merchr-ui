@@ -6,6 +6,7 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import { UserContext } from "../util/userContext";
 import { USER_EMAIL, USER_PASSWORD } from "../util/constants";
 
@@ -68,8 +69,20 @@ function Navbar() {
                                 }}
                             >
                                 <ListItem button>
-                                    <Inventory2OutlinedIcon className="mx-2" />
+                                    <HomeOutlinedIcon className="mx-2" />
                                     <ListItemText primary={"Home"} />
+                                </ListItem>
+                            </Link>
+                            <Link
+                                to="/products"
+                                style={{
+                                    color: "#000000",
+                                    textDecoration: "none",
+                                }}
+                            >
+                                <ListItem button>
+                                    <Inventory2OutlinedIcon className="mx-2" />
+                                    <ListItemText primary={"Products"} />
                                 </ListItem>
                             </Link>
                             {user && (

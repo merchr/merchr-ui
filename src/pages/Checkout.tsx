@@ -1,45 +1,41 @@
-import React, { useContext, useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { UserContext } from "../util/userContext";
 
-function Signup() {
+function Checkout() {
     const { user, setUser } = useContext(UserContext);
 
-    const [name, setName] = useState<string>("");
-    const [email, setEmail] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
-    const [address, setAddress] = useState<string>("");
-    const [phone, setPhone] = useState<string>("");
-    const [error, setError] = useState<string>("");
-
-    if (user) {
+    if (!user) {
         return <Navigate to="/" />;
     }
+
+    const { cart } = user;
+
+    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+    const [error, setError] = useState<string>("");
+
+    useEffect(() => {}, []);
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         setError("");
 
-        fetch("http://localhost:1337/api/auth/local/register", {
+        fetch("http://localhost:1337/api/auth/local", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                username: email,
-                email,
+                identifier: email,
                 password,
-                address,
-                phone,
             }),
         })
             .then((response) =>
                 response.json().then((response) => {
                     if (response.error) {
-                        setError(
-                            "There was an error creating your account. Please try again."
-                        );
+                        setError("Email or passowrd is invalid.");
 
                         return;
                     }
@@ -60,33 +56,19 @@ function Signup() {
             .catch((error) => {
                 console.log("An error occurred:", error.response);
 
-                setError(
-                    "There was an error creating your account. Please try again."
-                );
+                setError("Email or passowrd is invalid.");
             });
     };
 
     return (
         <form className="container" onSubmit={handleSubmit}>
             <div className="row my-5">
-                <div className="col fs-1 mx-auto text-center">Signup</div>
+                <div className="col fs-1 mx-auto text-center">Checkout</div>
             </div>
-            <div className="m-3 row mx-auto" style={{ maxWidth: 500 }}>
-                <label className="px-0 py-2" htmlFor="name">
-                    Name*
-                </label>
-                <input
-                    required
-                    type="text"
-                    name="name"
-                    className="form-control"
-                    value={name}
-                    onChange={(event) => setName(event.target.value)}
-                />
-            </div>
+
             <div className="m-3 row mx-auto" style={{ maxWidth: 500 }}>
                 <label className="px-0 py-2" htmlFor="email">
-                    Email*
+                    Email
                 </label>
                 <input
                     required
@@ -99,7 +81,7 @@ function Signup() {
             </div>
             <div className="m-3 row mx-auto" style={{ maxWidth: 500 }}>
                 <label className="px-0 py-2" htmlFor="password">
-                    Password*
+                    Password
                 </label>
                 <input
                     required
@@ -110,49 +92,26 @@ function Signup() {
                     onChange={(event) => setPassword(event.target.value)}
                 />
             </div>
-            <div className="m-3 row mx-auto" style={{ maxWidth: 500 }}>
-                <label className="px-0 py-2" htmlFor="address">
-                    Address
-                </label>
-                <input
-                    type="text"
-                    name="address"
-                    className="form-control"
-                    value={address}
-                    onChange={(event) => setAddress(event.target.value)}
-                />
-            </div>
-            <div className="m-3 row mx-auto" style={{ maxWidth: 500 }}>
-                <label className="px-0 py-2" htmlFor="phone">
-                    Phone number
-                </label>
-                <input
-                    type="text"
-                    name="phone"
-                    className="form-control"
-                    value={phone}
-                    onChange={(event) => setPhone(event.target.value)}
-                />
-            </div>
             {error && (
                 <div className="alert alert-warning" role="alert">
                     {error}
                 </div>
             )}
+
             <div className="row my-4">
                 <div className="col mx-auto text-center">
                     <button className="btn btn-secondary" type="submit">
-                        Sign up
+                        Login
                     </button>
                 </div>
             </div>
             <div className="row my-4">
                 <div className="col mx-auto text-center">
-                    Already have an account? <Link to="/login">Log in</Link>
+                    Don't have an account yet? <Link to="/signup">Sign Up</Link>
                 </div>
             </div>
         </form>
     );
 }
 
-export default Signup;
+export default Checkout;
