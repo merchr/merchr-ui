@@ -53,6 +53,7 @@ function Signup() {
                         email,
                         address,
                         phone,
+                        cart: [],
                     });
                 })
             )

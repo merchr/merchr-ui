@@ -4,7 +4,7 @@ export type User = {
     email: string;
     address: string;
     phone: string;
-    cart: [number];
+    cart: number[];
 };
 
 export type UserContext = {

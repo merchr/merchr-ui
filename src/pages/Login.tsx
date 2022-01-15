@@ -51,6 +51,7 @@ function Login() {
                         email,
                         address,
                         phone,
+                        cart: [],
                     });
                 })
             )

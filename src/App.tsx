@@ -48,6 +48,7 @@ function App() {
                                 email,
                                 address,
                                 phone,
+                                cart: [],
                             });
                         })
                     )
