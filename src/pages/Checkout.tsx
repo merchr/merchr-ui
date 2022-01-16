@@ -5,14 +5,16 @@ import { UserContext } from "../util/userContext";
 function Checkout() {
     const { user, setUser } = useContext(UserContext);
 
-    if (!user) {
-        return <Navigate to="/" />;
-    }
-
     const { cart } = user;
 
-    const [email, setEmail] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
+    const handleInputFocus = (e: any) => setCardFocus(e.target.name);
+
+    const [address, setAddress] = useState<string>(user.address ?? "");
+    const [cardNumber, setCardNumber] = useState<string>("");
+    const [cardName, setCardName] = useState<string>("");
+    const [cardExpiry, setCardExpiry] = useState<string>("");
+    const [cardCvc, setCardCvc] = useState<string>("");
+    const [cardFocus, setCardFocus] = useState<string>("");
     const [error, setError] = useState<string>("");
 
     useEffect(() => {}, []);
@@ -22,42 +24,42 @@ function Checkout() {
 
         setError("");
 
-        fetch("http://localhost:1337/api/auth/local", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                identifier: email,
-                password,
-            }),
-        })
-            .then((response) =>
-                response.json().then((response) => {
-                    if (response.error) {
-                        setError("Email or passowrd is invalid.");
+        // fetch("http://localhost:1337/api/auth/local", {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //     },
+        //     body: JSON.stringify({
+        //         identifier: email,
+        //         password,
+        //     }),
+        // })
+        //     .then((response) =>
+        //         response.json().then((response) => {
+        //             if (response.error) {
+        //                 setError("Email or passowrd is invalid.");
 
-                        return;
-                    }
+        //                 return;
+        //             }
 
-                    const { id, username, email, address, phone } =
-                        response.user;
+        //             const { id, username, email, address, phone } =
+        //                 response.user;
 
-                    setUser({
-                        id,
-                        username,
-                        email,
-                        address,
-                        phone,
-                        cart: [],
-                    });
-                })
-            )
-            .catch((error) => {
-                console.log("An error occurred:", error.response);
+        //             setUser({
+        //                 id,
+        //                 username,
+        //                 email,
+        //                 address,
+        //                 phone,
+        //                 cart: [],
+        //             });
+        //         })
+        //     )
+        //     .catch((error) => {
+        //         console.log("An error occurred:", error.response);
 
-                setError("Email or passowrd is invalid.");
-            });
+        //         setError("Email or passowrd is invalid.");
+        //     });
     };
 
     return (
@@ -67,31 +69,71 @@ function Checkout() {
             </div>
 
             <div className="m-3 row mx-auto" style={{ maxWidth: 500 }}>
-                <label className="px-0 py-2" htmlFor="email">
-                    Email
+                <label className="px-0 py-2" htmlFor="address">
+                    Address
                 </label>
                 <input
                     required
                     type="text"
-                    name="email"
+                    name="address"
                     className="form-control"
-                    value={email}
-                    onChange={(event) => setEmail(event.target.value)}
+                    value={address}
+                    onChange={(event) => setAddress(event.target.value)}
                 />
             </div>
             <div className="m-3 row mx-auto" style={{ maxWidth: 500 }}>
-                <label className="px-0 py-2" htmlFor="password">
-                    Password
+                <label className="px-0 py-2" htmlFor="address">
+                    Address
                 </label>
                 <input
                     required
-                    type="password"
-                    name="password"
+                    type="text"
+                    name="address"
                     className="form-control"
-                    value={password}
-                    onChange={(event) => setPassword(event.target.value)}
+                    value={address}
+                    onChange={(event) => setAddress(event.target.value)}
                 />
             </div>
+            <div className="m-3 row mx-auto" style={{ maxWidth: 500 }}>
+                <label className="px-0 py-2" htmlFor="address">
+                    Address
+                </label>
+                <input
+                    required
+                    type="text"
+                    name="address"
+                    className="form-control"
+                    value={address}
+                    onChange={(event) => setAddress(event.target.value)}
+                />
+            </div>
+            <div className="m-3 row mx-auto" style={{ maxWidth: 500 }}>
+                <label className="px-0 py-2" htmlFor="address">
+                    Address
+                </label>
+                <input
+                    required
+                    type="text"
+                    name="address"
+                    className="form-control"
+                    value={address}
+                    onChange={(event) => setAddress(event.target.value)}
+                />
+            </div>
+            <div className="m-3 row mx-auto" style={{ maxWidth: 500 }}>
+                <label className="px-0 py-2" htmlFor="address">
+                    Address
+                </label>
+                <input
+                    required
+                    type="text"
+                    name="address"
+                    className="form-control"
+                    value={address}
+                    onChange={(event) => setAddress(event.target.value)}
+                />
+            </div>
+
             {error && (
                 <div className="alert alert-warning" role="alert">
                     {error}
@@ -101,13 +143,8 @@ function Checkout() {
             <div className="row my-4">
                 <div className="col mx-auto text-center">
                     <button className="btn btn-secondary" type="submit">
-                        Login
+                        Pay
                     </button>
-                </div>
-            </div>
-            <div className="row my-4">
-                <div className="col mx-auto text-center">
-                    Don't have an account yet? <Link to="/signup">Sign Up</Link>
                 </div>
             </div>
         </form>

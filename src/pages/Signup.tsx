@@ -12,7 +12,7 @@ function Signup() {
     const [phone, setPhone] = useState<string>("");
     const [error, setError] = useState<string>("");
 
-    if (user) {
+    if (user.id) {
         return <Navigate to="/" />;
     }
 
@@ -30,6 +30,7 @@ function Signup() {
                 username: email,
                 email,
                 password,
+                name,
                 address,
                 phone,
             }),
@@ -44,16 +45,17 @@ function Signup() {
                         return;
                     }
 
-                    const { id, username, email, address, phone } =
+                    const { id, username, email, name, address, phone } =
                         response.user;
 
                     setUser({
+                        ...user,
                         id,
                         username,
                         email,
+                        name,
                         address,
                         phone,
-                        cart: [],
                     });
                 })
             )

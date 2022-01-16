@@ -11,14 +11,15 @@ import Signup from "./pages/Signup";
 import Products from "./pages/Products";
 import Product from "./pages/Product";
 import { USER_EMAIL, USER_PASSWORD } from "./util/constants";
+import Checkout from "./pages/Checkout";
 
 function App() {
-    const [user, setUser] = useState<User | null>(null);
+    const [user, setUser] = useState<User>({ cart: [] });
 
     const value = useMemo(() => ({ user, setUser }), [user, setUser]);
 
     useEffect(() => {
-        if (!user) {
+        if (!user.id) {
             const email = localStorage.getItem(USER_EMAIL);
             const password = localStorage.getItem(USER_PASSWORD);
 
@@ -39,16 +40,23 @@ function App() {
                                 return;
                             }
 
-                            const { id, username, email, address, phone } =
-                                response.user;
-
-                            setUser({
+                            const {
                                 id,
                                 username,
                                 email,
+                                name,
                                 address,
                                 phone,
-                                cart: [],
+                            } = response.user;
+
+                            setUser({
+                                ...user,
+                                id,
+                                username,
+                                name,
+                                email,
+                                address,
+                                phone,
                             });
                         })
                     )
@@ -71,6 +79,7 @@ function App() {
                         <Route path="/users" element={<Users />} />
                         <Route path="/products" element={<Products />} />
                         <Route path="/product/" element={<Product />} />
+                        <Route path="/checkout" element={<Checkout />} />
                         <Route path="/" element={<Home />} />
                     </Routes>
                 </div>

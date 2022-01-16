@@ -1,15 +1,16 @@
 export type User = {
-    id: number;
-    username: string;
-    email: string;
-    address: string;
-    phone: string;
+    id?: number;
+    username?: string;
+    email?: string;
+    name?: string;
+    address?: string;
+    phone?: string;
     cart: number[];
 };
 
 export type UserContext = {
-    user: User | null;
-    setUser: React.Dispatch<React.SetStateAction<User | null>>;
+    user: User;
+    setUser: React.Dispatch<React.SetStateAction<User>>;
 };
 
 export type Product = {

@@ -12,7 +12,7 @@ function Login() {
     const [password, setPassword] = useState<string>("");
     const [error, setError] = useState<string>("");
 
-    if (user) {
+    if (user.id) {
         return <Navigate to="/" />;
     }
 
@@ -39,19 +39,19 @@ function Login() {
                         return;
                     }
 
-                    const { id, username, email, address, phone } =
+                    const { id, username, email, name, address, phone } =
                         response.user;
 
                     localStorage.setItem(USER_EMAIL, email);
                     localStorage.setItem(USER_PASSWORD, atob(password));
 
                     setUser({
+                        ...user,
                         id,
                         username,
                         email,
                         address,
                         phone,
-                        cart: [],
                     });
                 })
             )
