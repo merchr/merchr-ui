@@ -1,20 +1,21 @@
-import React, { useContext, useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link, Navigate } from "react-router-dom";
-import { USER_EMAIL, USER_PASSWORD } from "../util/constants";
 import { UserContext } from "../util/userContext";
 
-function Login() {
-    const userContext = useContext(UserContext);
+function Checkout() {
+    const { user, setUser } = useContext(UserContext);
 
-    const { user, setUser } = userContext;
+    if (!user) {
+        return <Navigate to="/" />;
+    }
+
+    const { cart } = user;
 
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [error, setError] = useState<string>("");
 
-    if (user) {
-        return <Navigate to="/" />;
-    }
+    useEffect(() => {}, []);
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -42,9 +43,6 @@ function Login() {
                     const { id, username, email, address, phone } =
                         response.user;
 
-                    localStorage.setItem(USER_EMAIL, email);
-                    localStorage.setItem(USER_PASSWORD, atob(password));
-
                     setUser({
                         id,
                         username,
@@ -65,7 +63,7 @@ function Login() {
     return (
         <form className="container" onSubmit={handleSubmit}>
             <div className="row my-5">
-                <div className="col fs-1 mx-auto text-center">Login</div>
+                <div className="col fs-1 mx-auto text-center">Checkout</div>
             </div>
 
             <div className="m-3 row mx-auto" style={{ maxWidth: 500 }}>
@@ -116,4 +114,4 @@ function Login() {
     );
 }
 
-export default Login;
+export default Checkout;

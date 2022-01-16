@@ -53,6 +53,7 @@ function Signup() {
                         email,
                         address,
                         phone,
+                        cart: [],
                     });
                 })
             )
@@ -147,7 +148,7 @@ function Signup() {
             </div>
             <div className="row my-4">
                 <div className="col mx-auto text-center">
-                    Already have an account? <Link to="/signup">Log in</Link>
+                    Already have an account? <Link to="/login">Log in</Link>
                 </div>
             </div>
         </form>
