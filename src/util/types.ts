@@ -39,3 +39,14 @@ export type Category = {
     Name: string;
     Description: string;
 };
+
+export type Order = {
+    id: number;
+    attributes: {
+        userId: number;
+        products: number[];
+        confirmed: boolean;
+        createdAt: string;
+        updatedAt: string;
+    };
+};

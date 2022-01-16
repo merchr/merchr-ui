@@ -3,7 +3,7 @@ import { Link, Navigate } from "react-router-dom";
 import { UserContext } from "../util/userContext";
 
 function Checkout() {
-    const { user, setUser } = useContext(UserContext);
+    const { user } = useContext(UserContext);
 
     const { cart } = user;
 
@@ -62,6 +62,9 @@ function Checkout() {
         //     });
     };
 
+    if (!user.id) {
+        return <Navigate to="/" state={{ from: "checkout" }} />;
+    }
     return (
         <form className="container" onSubmit={handleSubmit}>
             <div className="row my-5">

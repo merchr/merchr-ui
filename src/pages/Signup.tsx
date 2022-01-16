@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useLocation } from "react-router-dom";
 import { UserContext } from "../util/userContext";
 
 function Signup() {
@@ -12,7 +12,15 @@ function Signup() {
     const [phone, setPhone] = useState<string>("");
     const [error, setError] = useState<string>("");
 
+    const location = useLocation();
+    const state = location?.state as { from: string };
+    const fromCheckout = state.from === "checkout";
+
     if (user.id) {
+        if (fromCheckout) {
+            return <Navigate to="/checkout" />;
+        }
+
         return <Navigate to="/" />;
     }
 
