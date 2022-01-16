@@ -17,18 +17,32 @@ import { Link } from 'react-router-dom';
 function Products() {
 
     const [data, setData] = React.useState<{ data: Product[] }>();
-
-    const { user, setUser } = useContext(UserContext);
+    const categories= new Array(0);
 
     useEffect(() => {
         fetch('http://localhost:1337/api/products')
             .then(res => res.json())
             .then(res => setData(res));
     }, []);
+ 
+    //gets the unique category Ids from data
+    const categoryIds=[...Array.from(new Set(data?.data?.map(item => item.category.id)))];
 
-    const categories = data?.data?.map((item: any) =>
-        item.category
-    ) || [];
+    //creating an array with data for categories by mapping the array of data 
+    const categoriesData = data?.data?.map((item: any) => item.category);
+
+
+    categoryIds?.map(categoryId=> {
+    let count=0;
+        categoriesData?.map(item=>{
+            if(categoryId===item.id && count===0) 
+            {
+                //check if the item.Id exists in the categoryIds array and if the count is 0 so we get only distinct values
+                categories?.push(item);
+                count++
+            }
+        })
+   })
 
     return (
         <div className={styles.container}>
