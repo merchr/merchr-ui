@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useLocation } from "react-router-dom";
 import { USER_EMAIL, USER_PASSWORD } from "../util/constants";
 import { UserContext } from "../util/userContext";
 
@@ -12,7 +12,15 @@ function Login() {
     const [password, setPassword] = useState<string>("");
     const [error, setError] = useState<string>("");
 
-    if (user) {
+    const location = useLocation();
+    const state = location?.state as { from: string };
+    const fromCheckout = state.from === "checkout";
+
+    if (user.id) {
+        if (fromCheckout) {
+            return <Navigate to="/checkout" />;
+        }
+
         return <Navigate to="/" />;
     }
 
@@ -39,19 +47,19 @@ function Login() {
                         return;
                     }
 
-                    const { id, username, email, address, phone } =
+                    const { id, username, email, name, address, phone } =
                         response.user;
 
                     localStorage.setItem(USER_EMAIL, email);
                     localStorage.setItem(USER_PASSWORD, atob(password));
 
                     setUser({
+                        ...user,
                         id,
                         username,
                         email,
                         address,
                         phone,
-                        cart: [],
                     });
                 })
             )
@@ -109,7 +117,13 @@ function Login() {
             </div>
             <div className="row my-4">
                 <div className="col mx-auto text-center">
-                    Don't have an account yet? <Link to="/signup">Sign Up</Link>
+                    Don't have an account yet?{" "}
+                    <Link
+                        to="/signup"
+                        state={fromCheckout ? { from: "checkout" } : {}}
+                    >
+                        Sign Up
+                    </Link>
                 </div>
             </div>
         </form>

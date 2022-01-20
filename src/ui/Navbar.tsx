@@ -36,6 +36,7 @@ function Navbar() {
                             </div>
                             <div className="col-auto px-0">
                                 <Link to="/account">
+                                    {user && <p>{user.name}</p>}
                                     <button className="btn">
                                         <PermIdentityOutlinedIcon />
                                     </button>
@@ -91,7 +92,7 @@ function Navbar() {
                                     onClick={() => {
                                         localStorage.removeItem(USER_EMAIL);
                                         localStorage.removeItem(USER_PASSWORD);
-                                        setUser(null);
+                                        setUser({ cart: [] });
                                     }}
                                 >
                                     <LogoutOutlinedIcon className="mx-2" />

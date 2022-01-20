@@ -1,15 +1,16 @@
 export type User = {
-    id: number;
-    username: string;
-    email: string;
-    address: string;
-    phone: string;
+    id?: number;
+    username?: string;
+    email?: string;
+    name?: string;
+    address?: string;
+    phone?: string;
     cart: number[];
 };
 
 export type UserContext = {
-    user: User | null;
-    setUser: React.Dispatch<React.SetStateAction<User | null>>;
+    user: User;
+    setUser: React.Dispatch<React.SetStateAction<User>>;
 };
 
 export type Product = {
@@ -37,4 +38,15 @@ export type Category = {
     id: number;
     Name: string;
     Description: string;
+};
+
+export type Order = {
+    id: number;
+    attributes: {
+        userId: number;
+        products: number[];
+        confirmed: boolean;
+        createdAt: string;
+        updatedAt: string;
+    };
 };
