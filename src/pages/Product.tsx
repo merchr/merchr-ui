@@ -33,9 +33,9 @@ function ProductPage() {
         item.category.id === categoryId
     ) || [];
 
-    const colors = products.map(item => item.color).filter((v, i, a) => a.indexOf(v) === i);
-    const sex = products.map(item => item.sex).filter((v, i, a) => a.indexOf(v) === i);
-    const size = products.map(item => item.size).filter((v, i, a) => a.indexOf(v) === i);
+    const colors = products.map(item => item.color?.name).filter((v, i, a) => a.indexOf(v) === i);
+    const sex = products.map(item => item.sex?.type).filter((v, i, a) => a.indexOf(v) === i);
+    const size = products.map(item => item.size?.name).filter((v, i, a) => a.indexOf(v) === i);
 
 
     return (
@@ -75,7 +75,7 @@ function ProductPage() {
                             <RadioGroup row aria-label="gender" name="row-radio-buttons-group">
                                 {colors?.map((item, index) => (
                                     <div key={index}>
-                                        <FormControlLabel value={item?.id} control={<Radio />} label={item?.name || 'label'} />
+                                        <FormControlLabel value={item} control={<Radio />} label={item || 'label'} />
                                     </div>
                                 ))}
                             </RadioGroup>
@@ -89,7 +89,7 @@ function ProductPage() {
                                     <RadioGroup row aria-label="gender" name="row-radio-buttons-group">
                                         {sex?.map((item, index) => (
                                             <div key={index}>
-                                                <FormControlLabel value={item?.id} control={<Radio />} label={item?.type || 'label'} />
+                                                <FormControlLabel value={item} control={<Radio />} label={item || 'label'} />
                                             </div>
                                         ))}
                                     </RadioGroup>
@@ -105,7 +105,7 @@ function ProductPage() {
                                     <RadioGroup row aria-label="gender" name="row-radio-buttons-group">
                                         {size?.map((item, index) => (
                                             <div key={index}>
-                                                <FormControlLabel value={item?.id} control={<Radio />} label={item?.name || 'label'} />
+                                                <FormControlLabel value={item} control={<Radio />} label={item|| 'label'} />
                                             </div>
                                         ))}
                                     </RadioGroup>
