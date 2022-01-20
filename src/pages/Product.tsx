@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { ChangeEvent, useEffect } from 'react';
 import { Product } from '../util/types';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -28,6 +28,9 @@ function ProductPage() {
     const location = useLocation();
     const state = location?.state as { categoryId: number };
     const categoryId = state.categoryId;
+    const [selectedColor, setSelectedColor] = React.useState('Blue');
+    const [selectedSex, setSelectedSex] = React.useState('Men');
+    const [selectedSize, setSelectedSize] = React.useState('S');
 
     const products = data?.data?.filter((item: any) =>
         item.category.id === categoryId
@@ -37,6 +40,8 @@ function ProductPage() {
     const sex = products.map(item => item.sex?.type).filter((v, i, a) => a.indexOf(v) === i);
     const size = products.map(item => item.size?.name).filter((v, i, a) => a.indexOf(v) === i);
 
+    const selectedProduct = products.filter(item => item?.size?.name === selectedSize && item.color?.name === selectedColor && item.sex?.type === selectedSex);
+    console.log("selectedProduct", selectedProduct);
 
     return (
         <div className={styles.container}>
@@ -72,7 +77,8 @@ function ProductPage() {
                     <div className={styles.section}>
                         <FormControl component="fieldset">
                             <FormLabel component="legend">Color</FormLabel>
-                            <RadioGroup row aria-label="gender" name="row-radio-buttons-group">
+                            <RadioGroup row aria-label="color" name="row-radio-buttons-group" value={selectedColor}
+                                onChange={(event) => setSelectedColor(event.target.value)}>
                                 {colors?.map((item, index) => (
                                     <div key={index}>
                                         <FormControlLabel value={item} control={<Radio />} label={item || 'label'} />
@@ -86,7 +92,8 @@ function ProductPage() {
                                 <hr />
                                 <FormControl component="fieldset">
                                     <FormLabel component="legend">Gender</FormLabel>
-                                    <RadioGroup row aria-label="gender" name="row-radio-buttons-group">
+                                    <RadioGroup row aria-label="gender" name="row-radio-buttons-group" value={selectedSex}
+                                        onChange={(event) => setSelectedSex(event.target.value)}>
                                         {sex?.map((item, index) => (
                                             <div key={index}>
                                                 <FormControlLabel value={item} control={<Radio />} label={item || 'label'} />
@@ -102,10 +109,11 @@ function ProductPage() {
                                 <hr />
                                 <FormControl component="fieldset">
                                     <FormLabel component="legend">Size</FormLabel>
-                                    <RadioGroup row aria-label="gender" name="row-radio-buttons-group">
+                                    <RadioGroup row aria-label="size" name="row-radio-buttons-group" value={selectedSize}
+                                        onChange={(event) => setSelectedSize(event.target.value)}>
                                         {size?.map((item, index) => (
                                             <div key={index}>
-                                                <FormControlLabel value={item} control={<Radio />} label={item|| 'label'} />
+                                                <FormControlLabel value={item} control={<Radio />} label={item || 'label'} />
                                             </div>
                                         ))}
                                     </RadioGroup>
