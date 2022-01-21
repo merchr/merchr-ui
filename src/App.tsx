@@ -13,6 +13,7 @@ import Product from "./pages/Product";
 import { USER_EMAIL, USER_PASSWORD } from "./util/constants";
 import Checkout from "./pages/Checkout";
 import Confirmation from "./pages/Confirmation";
+import Footer from "./footer";
 
 function App() {
     const [user, setUser] = useState<User>({ cart: [] });
@@ -89,6 +90,8 @@ function App() {
                     </Routes>
                 </div>
             </Router>
+
+            <Footer />
         </UserContext.Provider>
     );
 }
