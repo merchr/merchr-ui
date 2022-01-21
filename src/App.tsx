@@ -12,6 +12,8 @@ import Products from "./pages/Products";
 import Product from "./pages/Product";
 import { USER_EMAIL, USER_PASSWORD } from "./util/constants";
 import Checkout from "./pages/Checkout";
+import Footer  from "./footer";
+
 
 function App() {
     const [user, setUser] = useState<User>({ cart: [] });
@@ -82,9 +84,15 @@ function App() {
                         <Route path="/checkout" element={<Checkout />} />
                         <Route path="/" element={<Home />} />
                     </Routes>
+
                 </div>
             </Router>
+            
+            <Footer/>
+         
         </UserContext.Provider>
+        
+           
     );
 }
 

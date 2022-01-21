@@ -14,6 +14,7 @@ import Grid from '@mui/material/Grid';
 import styles from './Products.module.scss';
 import { Link } from 'react-router-dom';
 
+
 function Products() {
 
     const [data, setData] = React.useState<{ data: Product[] }>();
@@ -81,7 +82,10 @@ function Products() {
                     </Grid>
                 ))}
             </Grid>
-        </div>
+
+           
+           </div>
+           
     );
 }
 
