@@ -1,3 +1,4 @@
+import { wrap } from "module";
 import React, { useState, useEffect, useContext } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { createOrder } from "../util/queries";
@@ -52,85 +53,119 @@ function Checkout() {
                 <div className="col fs-1 mx-auto text-center">Checkout</div>
             </div>
 
-            <div className="m-3 row mx-auto" style={{ maxWidth: 500 }}>
-                <label className="px-0 py-2" htmlFor="address">
-                    Address
-                </label>
-                <input
-                    required
-                    type="text"
-                    name="address"
-                    className="form-control"
-                    value={address}
-                    onChange={(event) => setAddress(event.target.value)}
-                />
-            </div>
-            <div className="m-3 row mx-auto" style={{ maxWidth: 500 }}>
-                <label className="px-0 py-2" htmlFor="address">
-                    Card Name
-                </label>
-                <input
-                    required
-                    type="text"
-                    name="cardName"
-                    className="form-control"
-                    value={cardName}
-                    onChange={(event) => setCardName(event.target.value)}
-                />
-            </div>
-            <div className="m-3 row mx-auto" style={{ maxWidth: 500 }}>
-                <label className="px-0 py-2" htmlFor="address">
-                    Card Number
-                </label>
-                <input
-                    required
-                    type="text"
-                    name="cardNumber"
-                    className="form-control"
-                    value={cardNumber}
-                    onChange={(event) => setCardNumber(event.target.value)}
-                />
-            </div>
-            <div className="m-3 row mx-auto" style={{ maxWidth: 500 }}>
-                <label className="px-0 py-2" htmlFor="address">
-                    Expiration Date
-                </label>
-                <input
-                    required
-                    type="text"
-                    name="expDate"
-                    className="form-control"
-                    value={cardExpiry}
-                    onChange={(event) => setCardExpiry(event.target.value)}
-                />
-            </div>
-            <div className="m-3 row mx-auto" style={{ maxWidth: 500 }}>
-                <label className="px-0 py-2" htmlFor="address">
-                    CVV
-                </label>
-                <input
-                    required
-                    type="text"
-                    name="cvv"
-                    className="form-control"
-                    value={cardCvc}
-                    pattern="[0-9]*"
-                    inputMode="numeric"
-                    onChange={(event) => setCardCvc(event.target.value)}
-                />
-            </div>
-
-            {error && (
-                <div className="alert alert-warning" role="alert">
-                    {error}
+            <div
+                style={{
+                    display: "flex",
+                    justifyContent: "space-around",
+                    flexWrap: "wrap",
+                }}
+            >
+                <div>
+                    <p>Your total is: $10</p>
+                    <p>
+                        Fill in your credit card details to finish your order.
+                    </p>
                 </div>
-            )}
+                <div>
+                    <div className="row mx-auto" style={{ maxWidth: 500 }}>
+                        <label className="px-0 py-2" htmlFor="address">
+                            Address
+                        </label>
+                        <input
+                            required
+                            type="text"
+                            name="address"
+                            className="form-control"
+                            value={address}
+                            placeholder="Address"
+                            onChange={(event) => setAddress(event.target.value)}
+                        />
+                    </div>
+                    <div className="m-3 row mx-auto" style={{ maxWidth: 500 }}>
+                        <label className="px-0 py-2" htmlFor="address">
+                            Card Name
+                        </label>
+                        <input
+                            required
+                            type="text"
+                            name="cardName"
+                            className="form-control"
+                            value={cardName}
+                            placeholder="Full name"
+                            onChange={(event) =>
+                                setCardName(event.target.value)
+                            }
+                        />
+                    </div>
+                    <div className="m-3 row mx-auto" style={{ maxWidth: 500 }}>
+                        <label className="px-0 py-2" htmlFor="address">
+                            Card Number
+                        </label>
+                        <input
+                            required
+                            type="text"
+                            name="cardNumber"
+                            className="form-control"
+                            value={cardNumber}
+                            pattern="[0-9]*"
+                            inputMode="numeric"
+                            placeholder="XXXX XXXX XXXX XXXX"
+                            maxLength={19}
+                            onChange={(event) =>
+                                setCardNumber(event.target.value)
+                            }
+                        />
+                    </div>
+                    <div className="m-3 row mx-auto" style={{ maxWidth: 500 }}>
+                        <label className="px-0 py-2" htmlFor="address">
+                            Expiration Date
+                        </label>
+                        <input
+                            required
+                            type="text"
+                            name="expDate"
+                            className="form-control"
+                            value={cardExpiry}
+                            pattern="[0-9]*"
+                            inputMode="numeric"
+                            placeholder="MM/YY"
+                            maxLength={5}
+                            onChange={(event) =>
+                                setCardExpiry(event.target.value)
+                            }
+                        />
+                    </div>
+                    <div className="m-3 row mx-auto" style={{ maxWidth: 500 }}>
+                        <label className="px-0 py-2" htmlFor="address">
+                            CVV
+                        </label>
+                        <input
+                            required
+                            type="text"
+                            name="cvv"
+                            className="form-control"
+                            placeholder="XXX"
+                            value={cardCvc}
+                            pattern="[0-9]*"
+                            inputMode="numeric"
+                            maxLength={3}
+                            onChange={(event) => setCardCvc(event.target.value)}
+                        />
+                    </div>
 
-            <div className="row my-4">
-                <div className="col mx-auto text-center">
-                    <button className="btn btn-secondary" type="submit">
-                        Pay
-                    </button>
+                    {error && (
+                        <div className="alert alert-warning" role="alert">
+                            {error}
+                        </div>
+                    )}
+
+                    <div className="row my-4">
+                        <div className="col mx-auto text-center">
+                            <button className="btn btn-secondary" type="submit">
+                                Pay
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </form>
