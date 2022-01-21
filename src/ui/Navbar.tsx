@@ -36,10 +36,20 @@ function Navbar() {
                             </div>
                             <div className="col-auto px-0">
                                 <Link to="/account">
-                                    {user && <p>{user.name}</p>}
-                                    <button className="btn">
-                                        <PermIdentityOutlinedIcon />
-                                    </button>
+                                    <div
+                                        style={{
+                                            display: "flex",
+                                        }}
+                                    >
+                                        {user.id && (
+                                            <p className="my-auto">
+                                                {user.name ?? user.username}
+                                            </p>
+                                        )}
+                                        <button className="btn">
+                                            <PermIdentityOutlinedIcon />
+                                        </button>
+                                    </div>
                                 </Link>
                             </div>
                         </div>
@@ -86,7 +96,7 @@ function Navbar() {
                                     <ListItemText primary={"Products"} />
                                 </ListItem>
                             </Link>
-                            {user && (
+                            {user.id && (
                                 <ListItem
                                     button
                                     onClick={() => {

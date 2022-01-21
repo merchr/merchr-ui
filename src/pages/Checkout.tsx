@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link, Navigate } from "react-router-dom";
+import { createOrder } from "../util/queries";
 import { UserContext } from "../util/userContext";
 
 function Checkout() {
@@ -7,64 +8,44 @@ function Checkout() {
 
     const { cart } = user;
 
-    const handleInputFocus = (e: any) => setCardFocus(e.target.name);
-
     const [address, setAddress] = useState<string>(user.address ?? "");
     const [cardNumber, setCardNumber] = useState<string>("");
     const [cardName, setCardName] = useState<string>("");
     const [cardExpiry, setCardExpiry] = useState<string>("");
     const [cardCvc, setCardCvc] = useState<string>("");
-    const [cardFocus, setCardFocus] = useState<string>("");
     const [error, setError] = useState<string>("");
 
-    useEffect(() => {}, []);
+    const [orderId, setOrderId] = useState<number>();
+
+    if (!user.id) {
+        return <Navigate to="/login" state={{ from: "checkout" }} />;
+    }
+
+    if (orderId) {
+        return <Navigate to="/confirmation" state={{ orderId }} />;
+    }
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         setError("");
 
-        // fetch("http://localhost:1337/api/auth/local", {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //     },
-        //     body: JSON.stringify({
-        //         identifier: email,
-        //         password,
-        //     }),
-        // })
-        //     .then((response) =>
-        //         response.json().then((response) => {
-        //             if (response.error) {
-        //                 setError("Email or passowrd is invalid.");
+        try {
+            const order = await createOrder(user.id as number, cart);
 
-        //                 return;
-        //             }
+            if (order?.id) {
+                setOrderId(order?.id);
+                return;
+            }
 
-        //             const { id, username, email, address, phone } =
-        //                 response.user;
+            setError("Please check your credit card details.");
+        } catch (error) {
+            console.log("An error occurred:", error);
 
-        //             setUser({
-        //                 id,
-        //                 username,
-        //                 email,
-        //                 address,
-        //                 phone,
-        //                 cart: [],
-        //             });
-        //         })
-        //     )
-        //     .catch((error) => {
-        //         console.log("An error occurred:", error.response);
-
-        //         setError("Email or passowrd is invalid.");
-        //     });
+            setError("Please check your credit card details.");
+        }
     };
 
-    if (!user.id) {
-        return <Navigate to="/" state={{ from: "checkout" }} />;
-    }
     return (
         <form className="container" onSubmit={handleSubmit}>
             <div className="row my-5">
@@ -86,54 +67,56 @@ function Checkout() {
             </div>
             <div className="m-3 row mx-auto" style={{ maxWidth: 500 }}>
                 <label className="px-0 py-2" htmlFor="address">
-                    Address
+                    Card Name
                 </label>
                 <input
                     required
                     type="text"
-                    name="address"
+                    name="cardName"
                     className="form-control"
-                    value={address}
-                    onChange={(event) => setAddress(event.target.value)}
+                    value={cardName}
+                    onChange={(event) => setCardName(event.target.value)}
                 />
             </div>
             <div className="m-3 row mx-auto" style={{ maxWidth: 500 }}>
                 <label className="px-0 py-2" htmlFor="address">
-                    Address
+                    Card Number
                 </label>
                 <input
                     required
                     type="text"
-                    name="address"
+                    name="cardNumber"
                     className="form-control"
-                    value={address}
-                    onChange={(event) => setAddress(event.target.value)}
+                    value={cardNumber}
+                    onChange={(event) => setCardNumber(event.target.value)}
                 />
             </div>
             <div className="m-3 row mx-auto" style={{ maxWidth: 500 }}>
                 <label className="px-0 py-2" htmlFor="address">
-                    Address
+                    Expiration Date
                 </label>
                 <input
                     required
                     type="text"
-                    name="address"
+                    name="expDate"
                     className="form-control"
-                    value={address}
-                    onChange={(event) => setAddress(event.target.value)}
+                    value={cardExpiry}
+                    onChange={(event) => setCardExpiry(event.target.value)}
                 />
             </div>
             <div className="m-3 row mx-auto" style={{ maxWidth: 500 }}>
                 <label className="px-0 py-2" htmlFor="address">
-                    Address
+                    CVV
                 </label>
                 <input
                     required
                     type="text"
-                    name="address"
+                    name="cvv"
                     className="form-control"
-                    value={address}
-                    onChange={(event) => setAddress(event.target.value)}
+                    value={cardCvc}
+                    pattern="[0-9]*"
+                    inputMode="numeric"
+                    onChange={(event) => setCardCvc(event.target.value)}
                 />
             </div>
 

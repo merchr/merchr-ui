@@ -41,9 +41,11 @@ export const createOrder = async (
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                userId,
-                confirmed: true,
-                products: `[${products.toString()}]`,
+                data: {
+                    userId,
+                    confirmed: true,
+                    products: `[${products.toString()}]`,
+                },
             }),
         });
 

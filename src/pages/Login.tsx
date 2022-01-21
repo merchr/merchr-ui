@@ -14,7 +14,7 @@ function Login() {
 
     const location = useLocation();
     const state = location?.state as { from: string };
-    const fromCheckout = state.from === "checkout";
+    const fromCheckout = state?.from === "checkout";
 
     if (user.id) {
         if (fromCheckout) {

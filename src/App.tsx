@@ -12,6 +12,7 @@ import Products from "./pages/Products";
 import Product from "./pages/Product";
 import { USER_EMAIL, USER_PASSWORD } from "./util/constants";
 import Checkout from "./pages/Checkout";
+import Confirmation from "./pages/Confirmation";
 
 function App() {
     const [user, setUser] = useState<User>({ cart: [] });
@@ -80,6 +81,10 @@ function App() {
                         <Route path="/products" element={<Products />} />
                         <Route path="/product/" element={<Product />} />
                         <Route path="/checkout" element={<Checkout />} />
+                        <Route
+                            path="/confirmation"
+                            element={<Confirmation />}
+                        />
                         <Route path="/" element={<Home />} />
                     </Routes>
                 </div>
