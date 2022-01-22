@@ -60,8 +60,10 @@ function Checkout() {
                     flexWrap: "wrap",
                 }}
             >
-                <div>
-                    <p>Your total is: $10</p>
+                <div className="my-3">
+                    <p>
+                        Your total is: <strong>$10</strong>
+                    </p>
                     <p>
                         Fill in your credit card details to finish your order.
                     </p>
@@ -109,8 +111,8 @@ function Checkout() {
                             value={cardNumber}
                             pattern="[0-9]*"
                             inputMode="numeric"
-                            placeholder="XXXX XXXX XXXX XXXX"
-                            maxLength={19}
+                            placeholder="XXXXXXXXXXXXXXXX"
+                            maxLength={16}
                             onChange={(event) =>
                                 setCardNumber(event.target.value)
                             }
@@ -126,7 +128,7 @@ function Checkout() {
                             name="expDate"
                             className="form-control"
                             value={cardExpiry}
-                            pattern="[0-9]*"
+                            pattern="[0-9][0-9]\/[0-9][0-9]"
                             inputMode="numeric"
                             placeholder="MM/YY"
                             maxLength={5}

@@ -14,6 +14,7 @@ import { USER_EMAIL, USER_PASSWORD } from "./util/constants";
 import Checkout from "./pages/Checkout";
 import Confirmation from "./pages/Confirmation";
 import Footer from "./footer";
+import Orders from "./pages/Orders";
 
 function App() {
     const [user, setUser] = useState<User>({ cart: [] });
@@ -86,6 +87,7 @@ function App() {
                             path="/confirmation"
                             element={<Confirmation />}
                         />
+                        <Route path="/orders" element={<Orders />} />
                         <Route path="/" element={<Home />} />
                     </Routes>
                 </div>

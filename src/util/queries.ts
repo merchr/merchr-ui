@@ -1,4 +1,4 @@
-import { Order } from "./types";
+import { Order, Product } from "./types";
 
 export const getOrderWithId = async (id: number): Promise<Order | null> => {
     try {
@@ -6,7 +6,15 @@ export const getOrderWithId = async (id: number): Promise<Order | null> => {
 
         const json = await res.json();
 
-        return json.data;
+        const order = json.data;
+
+        return {
+            ...order,
+            attributes: {
+                ...order.attributes,
+                products: JSON.parse(order.attributes.products as string),
+            },
+        };
     } catch (err) {
         console.log(err);
 
@@ -20,9 +28,35 @@ export const getOrdersOfUser = async (userId: number): Promise<Order[]> => {
 
         const json = await res.json();
 
-        const orders = json.data as Order[];
+        const orders = json.data;
 
-        return orders.filter((order) => order.attributes.userId === userId);
+        const filteredOrders = orders.filter(
+            (order: any) => order.attributes.userId === userId
+        );
+
+        return filteredOrders.map((order: any) => ({
+            ...order,
+            attributes: {
+                ...order.attributes,
+                products: JSON.parse(order.attributes.products as string),
+            },
+        }));
+    } catch (err) {
+        console.log(err);
+
+        return [];
+    }
+};
+
+export const getProducts = async () => {
+    try {
+        const res = await fetch(`http://localhost:1337/api/products`);
+
+        const json = await res.json();
+
+        const products = json.data as Product[];
+
+        return products;
     } catch (err) {
         console.log(err);
 
