@@ -1,7 +1,8 @@
 import { wrap } from "module";
 import React, { useState, useEffect, useContext } from "react";
 import { Link, Navigate } from "react-router-dom";
-import { createOrder } from "../util/queries";
+import { createOrder, getProducts } from "../util/queries";
+import { Product } from "../util/types";
 import { UserContext } from "../util/userContext";
 
 function Checkout() {
@@ -16,7 +17,15 @@ function Checkout() {
     const [cardCvc, setCardCvc] = useState<string>("");
     const [error, setError] = useState<string>("");
 
+    const [products, setProducts] = useState<Product[]>([]);
     const [orderId, setOrderId] = useState<number>();
+
+    useEffect(() => {
+        (async () => {
+            const products = await getProducts();
+            setProducts(products);
+        })();
+    }, []);
 
     if (!user.id) {
         return <Navigate to="/login" state={{ from: "checkout" }} />;
@@ -47,6 +56,13 @@ function Checkout() {
         }
     };
 
+    const totalPrice = cart
+        .map(
+            (productId) =>
+                products.find(({ id }) => id === productId)?.category.price ?? 0
+        )
+        .reduce((sum, curr) => sum + curr, 0);
+
     return (
         <form className="container" onSubmit={handleSubmit}>
             <div className="row my-5">
@@ -62,7 +78,7 @@ function Checkout() {
             >
                 <div className="my-3">
                     <p>
-                        Your total is: <strong>$10</strong>
+                        Your total is: <strong>${totalPrice.toFixed(2)}</strong>
                     </p>
                     <p>
                         Fill in your credit card details to finish your order.
@@ -156,7 +172,10 @@ function Checkout() {
                     </div>
 
                     {error && (
-                        <div className="alert alert-warning" role="alert">
+                        <div
+                            className="alert alert-warning text-center"
+                            role="alert"
+                        >
                             {error}
                         </div>
                     )}

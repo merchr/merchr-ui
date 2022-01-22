@@ -145,7 +145,7 @@ function Signup() {
                 />
             </div>
             {error && (
-                <div className="alert alert-warning" role="alert">
+                <div className="alert alert-warning text-center" role="alert">
                     {error}
                 </div>
             )}
