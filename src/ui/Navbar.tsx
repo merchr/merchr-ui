@@ -7,6 +7,7 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
+import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import { UserContext } from "../util/userContext";
 import { USER_EMAIL, USER_PASSWORD } from "../util/constants";
@@ -56,7 +57,16 @@ function Navbar() {
                             <MenuOutlinedIcon />
                         </button>
                     </div>
-                    <div className="col fs-2 fw-bolder">Merchr</div>
+                    <div
+                        className="col fs-2 fw-bolder"
+                        style={{
+                            // color: "#1991eb",
+                            color: "white",
+                        }}
+                    >
+                        <img src="/logo.png" height={30} />
+                        erchr
+                    </div>
                     <div className="col-auto">
                         <div className="row">
                             <div className="col-auto px-0">
@@ -74,10 +84,20 @@ function Navbar() {
                             </div>
                             <div className="col-auto px-0">
                                 <Link to="/account">
-                                    {user && <p>{user.name}</p>}
-                                    <button className="btn">
-                                        <PermIdentityOutlinedIcon />
-                                    </button>
+                                    <div
+                                        style={{
+                                            display: "flex",
+                                        }}
+                                    >
+                                        {user.id && (
+                                            <p className="my-auto">
+                                                {user.name ?? user.username}
+                                            </p>
+                                        )}
+                                        <button className="btn">
+                                            <PermIdentityOutlinedIcon />
+                                        </button>
+                                    </div>
                                 </Link>
                             </div>
                         </div>
@@ -121,10 +141,24 @@ function Navbar() {
                             >
                                 <ListItem button>
                                     <Inventory2OutlinedIcon className="mx-2" />
-                                    <ListItemText primary={"Products"} />
+                                    <ListItemText primary={"Shop"} />
                                 </ListItem>
                             </Link>
-                            {user && (
+                            {user.id && (
+                                <Link
+                                    to="/orders"
+                                    style={{
+                                        color: "#000000",
+                                        textDecoration: "none",
+                                    }}
+                                >
+                                    <ListItem button>
+                                        <LocalShippingOutlinedIcon className="mx-2" />
+                                        <ListItemText primary={"My orders"} />
+                                    </ListItem>
+                                </Link>
+                            )}
+                            {user.id && (
                                 <ListItem
                                     button
                                     onClick={() => {

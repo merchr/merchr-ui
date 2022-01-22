@@ -14,7 +14,7 @@ function Login() {
 
     const location = useLocation();
     const state = location?.state as { from: string };
-    const fromCheckout = state.from === "checkout";
+    const fromCheckout = state?.from === "checkout";
 
     if (user.id) {
         if (fromCheckout) {
@@ -103,7 +103,7 @@ function Login() {
                 />
             </div>
             {error && (
-                <div className="alert alert-warning" role="alert">
+                <div className="alert alert-warning text-center" role="alert">
                     {error}
                 </div>
             )}

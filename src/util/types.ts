@@ -39,6 +39,7 @@ export type Category = {
     id: number;
     Name: string;
     Description: string;
+    price: number;
 };
 
 export type Order = {

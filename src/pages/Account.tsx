@@ -5,7 +5,7 @@ import { UserContext } from "../util/userContext";
 function Account() {
     const { user } = useContext(UserContext);
 
-    if (!user) {
+    if (!user.id) {
         return <Navigate to="/login" />;
     }
 
