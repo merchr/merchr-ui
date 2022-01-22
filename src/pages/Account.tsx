@@ -1,9 +1,10 @@
 import React, { useContext } from "react";
 import { Navigate } from "react-router-dom";
+import { USER_EMAIL, USER_PASSWORD } from "../util/constants";
 import { UserContext } from "../util/userContext";
 
 function Account() {
-    const { user } = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
 
     if (!user.id) {
         return <Navigate to="/login" />;
@@ -48,19 +49,18 @@ function Account() {
                     </div>
                 </dl>
 
-                {/* {user.id && (
+                {user.id && (
                     <button
-                        
+                        className="btn btn-secondary mb-5"
                         onClick={() => {
                             localStorage.removeItem(USER_EMAIL);
                             localStorage.removeItem(USER_PASSWORD);
                             setUser({ cart: [] });
                         }}
                     >
-                        <LogoutOutlinedIcon className="mx-2" />
-                        <ListItemText primary={"Log out"} />
+                        Log out
                     </button>
-                )} */}
+                )}
             </div>
         </div>
     );
