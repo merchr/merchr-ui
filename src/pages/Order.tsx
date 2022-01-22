@@ -164,9 +164,11 @@ function Orders() {
                 );
             })}
 
-            <button className="btn btn-secondary my-4">
-                Go back to orders
-            </button>
+            <Link to="/orders">
+                <button className="btn btn-secondary my-4">
+                    Go back to orders
+                </button>
+            </Link>
         </div>
     );
 }
