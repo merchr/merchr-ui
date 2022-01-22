@@ -18,6 +18,7 @@ export type Product = {
     createdAt: string;
     updatedAt: string;
     publishedAt: string;
+    price: number;
     category: Category;
     color: {
         id: number;
