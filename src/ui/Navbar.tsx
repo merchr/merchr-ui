@@ -1,6 +1,6 @@
 import { Box, List, ListItem, ListItemText } from "@mui/material";
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { Badge, Drawer, IconButton } from "@material-ui/core";
 import { AddShoppingCart } from "@material-ui/icons";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
@@ -37,7 +37,7 @@ function Navbar() {
 
     console.log("usr cart", user.cart);
     const handleAddToCart = (clickedItemId: number) => {
-        setUser({...user, cart: [...user.cart, clickedItemId]});
+        setUser({ ...user, cart: [...user.cart, clickedItemId] });
     };
 
     const handleRemoveFromCart = (id: number) => {
@@ -48,7 +48,7 @@ function Navbar() {
         //         }
         //     }, [] as any[])
         // );
-        setUser({...user, cart: [...user.cart, id]});
+        setUser({ ...user, cart: [...user.cart, id] });
     };
 
     return (
@@ -73,34 +73,41 @@ function Navbar() {
                     <div className="col-auto">
                         <div className="row">
                             <div className="col-auto px-0">
-                            <PopupState variant="popover" popupId="demo-popup-popover">
-                        {(popupState) => (
-                            <div>
-                            <StyledButton {...bindTrigger(popupState)}>
-                                    <Badge badgeContent={getTotalItems} color="error">
-                                        <AddShoppingCart />
-                                    </Badge>
-                                </StyledButton>
-                            <Popover
-                                {...bindPopover(popupState)}
-                                anchorOrigin={{
-                                vertical: 'bottom',
-                                horizontal: 'center',
-                                }}
-                                transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'center',
-                                }}
-                                style={{maxHeight: "450px"}}
-                            >
-                                <Cart
-                                    addToCart={handleAddToCart}
-                                    removeFromCart={handleRemoveFromCart}
-                                />
-                            </Popover>
-                            </div>
-                        )}
-                        </PopupState>
+                                <PopupState variant="popover" popupId="demo-popup-popover">
+                                    {(popupState) => (
+                                        <div>
+                                            <StyledButton {...bindTrigger(popupState)}>
+                                                <Badge badgeContent={getTotalItems} color="error">
+                                                    <AddShoppingCart />
+                                                </Badge>
+                                            </StyledButton>
+                                            <Popover
+                                                {...bindPopover(popupState)}
+                                                anchorOrigin={{
+                                                    vertical: 'bottom',
+                                                    horizontal: 'center',
+                                                }}
+                                                transformOrigin={{
+                                                    vertical: 'top',
+                                                    horizontal: 'center',
+                                                }}
+                                                style={{ maxHeight: "450px" }}
+                                            >
+                                                <Cart
+                                                    addToCart={handleAddToCart}
+                                                    removeFromCart={handleRemoveFromCart}
+                                                />
+                                                <Link
+                                                    to={{
+                                                        pathname: "/cart",
+                                                    }}
+                                                >
+                                                    <Button> See my Cart</Button>
+                                                </Link>
+                                            </Popover>
+                                        </div>
+                                    )}
+                                </PopupState>
                             </div>
                             <div className="col-auto px-0">
                                 <Link to="/account">

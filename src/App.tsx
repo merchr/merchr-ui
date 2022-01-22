@@ -16,12 +16,20 @@ import Confirmation from "./pages/Confirmation";
 import Footer from "./footer";
 import Orders from "./pages/Orders";
 import Order from "./pages/Order";
+import Cart from "./components/Cart";
 
 function App() {
     const [user, setUser] = useState<User>({ cart: [] });
 
     const value = useMemo(() => ({ user, setUser }), [user, setUser]);
+    const handleAddToCart = (clickedItemId: number) => {
+        setUser({...user, cart: [...user.cart, clickedItemId]});
+    };
 
+    const handleRemoveFromCart = (id: number) => {
+        setUser({...user, cart: [...user.cart, id]});
+    };
+    
     useEffect(() => {
         if (!user.id) {
             const email = localStorage.getItem(USER_EMAIL);
@@ -83,6 +91,10 @@ function App() {
                         <Route path="/users" element={<Users />} />
                         <Route path="/products" element={<Products />} />
                         <Route path="/product/" element={<Product />} />
+                        <Route path="/cart" element={<Cart
+                                    addToCart={handleAddToCart}
+                                    removeFromCart={handleRemoveFromCart}
+                                />} />
                         <Route path="/checkout" element={<Checkout />} />
                         <Route
                             path="/confirmation"
