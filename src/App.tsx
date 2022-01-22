@@ -15,6 +15,7 @@ import Checkout from "./pages/Checkout";
 import Confirmation from "./pages/Confirmation";
 import Footer from "./footer";
 import Orders from "./pages/Orders";
+import Order from "./pages/Order";
 
 function App() {
     const [user, setUser] = useState<User>({ cart: [] });
@@ -88,6 +89,8 @@ function App() {
                             element={<Confirmation />}
                         />
                         <Route path="/orders" element={<Orders />} />
+                        <Route path="/orders/:id" element={<Order />} />
+
                         <Route path="/" element={<Home />} />
                     </Routes>
                 </div>
