@@ -11,36 +11,33 @@ type Props = {
 };
 
 const Cart = ({ addToCart, removeFromCart }: Props) => {
-  
+
   const [data, setData] = useState<{ data: Product[] }>()
   const { user, setUser } = useContext(UserContext);
   useEffect(() => {
     fetch('http://localhost:1337/api/products')
-        .then(res => res.json())
-        .then(res => setData(res));
-}, []);
+      .then(res => res.json())
+      .then(res => setData(res));
+  }, []);
 
   const cartItemIds = user.cart;
-  console.log("cartitemsids", cartItemIds);
-  const [cartItems,setCartItems]= useState<Product[]>([]);
-  useEffect(()=>{
-    let arr=[] as Product[];
-    const uniq= data?.data?.map((item) =>{
-      cartItemIds.map((id:number)=>{
-        if(item.id===id)
-        {
-          console.log("kaltirna==",item.id);
-          arr= [...arr, item];
+  const [cartItems, setCartItems] = useState<Product[]>([]);
+
+  useEffect(() => {
+    let arr = [] as Product[];
+    const uniq = data?.data?.map((item) => {
+      cartItemIds.map((id: number) => {
+        if (item.id === id) {
+          arr = [...arr, item];
         }
       });
     });
     setCartItems(arr);
-    console.log("arr", arr);  
-  },[user]);
- 
-  console.log("CART ITEMS", cartItems);
+    console.log("arr", arr);
+  }, [user,data]);
+
   const calculateTotal = (items: any[]) =>
-    items.reduce((acc, item) => acc + item.amount * item.price, 0);
+    items.reduce((acc, item) => acc + item.category.price??0, 0);
 
   return (
     <Wrapper>
@@ -54,7 +51,7 @@ const Cart = ({ addToCart, removeFromCart }: Props) => {
           removeFromCart={removeFromCart}
         />
       ))}
-      {/* <h2>Total: ${calculateTotal(cartItems).toFixed(2)}</h2> */}
+      <h2>Total: ${calculateTotal(cartItems).toFixed(2)}</h2>
     </Wrapper>
   );
 };

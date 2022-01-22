@@ -13,6 +13,10 @@ import { UserContext } from "../util/userContext";
 import { USER_EMAIL, USER_PASSWORD } from "../util/constants";
 import Cart from "../components/Cart";
 import styled from "styled-components";
+import Popover from '@mui/material/Popover';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state';
 
 const Wrapper = styled.div`
   margin: 40px;
@@ -29,7 +33,6 @@ function Navbar() {
     const [open, setOpen] = React.useState<boolean>(false);
 
     const { user, setUser } = useContext(UserContext);
-    const [cartOpen, setCartOpen] = useState(false);
     const getTotalItems = user.cart.length;
 
     console.log("usr cart", user.cart);
@@ -70,17 +73,34 @@ function Navbar() {
                     <div className="col-auto">
                         <div className="row">
                             <div className="col-auto px-0">
-                                <Drawer anchor="right" open={cartOpen} onClose={() => setCartOpen(false)}>
-                                    <Cart
-                                        addToCart={handleAddToCart}
-                                        removeFromCart={handleRemoveFromCart}
-                                    />
-                                </Drawer>
-                                <StyledButton onClick={() => setCartOpen(true)}>
+                            <PopupState variant="popover" popupId="demo-popup-popover">
+                        {(popupState) => (
+                            <div>
+                            <StyledButton {...bindTrigger(popupState)}>
                                     <Badge badgeContent={getTotalItems} color="error">
                                         <AddShoppingCart />
                                     </Badge>
                                 </StyledButton>
+                            <Popover
+                                {...bindPopover(popupState)}
+                                anchorOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'center',
+                                }}
+                                transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'center',
+                                }}
+                                style={{maxHeight: "450px"}}
+                            >
+                                <Cart
+                                    addToCart={handleAddToCart}
+                                    removeFromCart={handleRemoveFromCart}
+                                />
+                            </Popover>
+                            </div>
+                        )}
+                        </PopupState>
                             </div>
                             <div className="col-auto px-0">
                                 <Link to="/account">
