@@ -16,6 +16,10 @@ import Confirmation from "./pages/Confirmation";
 import Footer from "./footer";
 import Orders from "./pages/Orders";
 import Order from "./pages/Order";
+import Layout, { Content } from "antd/lib/layout/layout";
+
+
+
 
 function App() {
     const [user, setUser] = useState<User>({ cart: [] });
@@ -75,6 +79,7 @@ function App() {
         <UserContext.Provider value={value}>
             <Router>
                 <div>
+                
                     <Navbar />
                     <Routes>
                         <Route path="/login" element={<Login />} />
@@ -95,6 +100,8 @@ function App() {
                     </Routes>
                 </div>
             </Router>
+         
+        
 
             <Footer />
         </UserContext.Provider>

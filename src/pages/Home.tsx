@@ -1,27 +1,19 @@
 import React, { useState, useEffect } from "react";
+import 'antd/dist/antd.css'; 
 
+import { Carousel, Button } from 'antd';
+import  "./Home.module.scss";
 
-import { Button } from 'antd';
-
-import { Carousel } from 'antd';
-
+import '../App.css'
 
 const items = [
     {
       key: '1',
-      title: 'Web and mobile payment built for developers',
-      content: 'An vim odio ocurreret consetetur, justo constituto ex mea. Quidam facilisis vituperata pri ne. Id nostrud gubergren urbanitas sed, quo summo animal qualisque ut, cu nostro dissentias consectetuer mel. Ut admodum conceptam mei, cu eam tation fabulas abhorreant. His ex mandamus.',
+      title: 'Press the menu at the top left side to see the products',
+      content: 'Press the avatar icon on the top right to sign in or create an account.',
     },
-    {
-      key: '2',
-      title: 'Work better together. Schedule meetings',
-      content: 'An vim odio ocurreret consetetur, justo constituto ex mea. Quidam facilisis vituperata pri ne. Id nostrud gubergren urbanitas sed, quo summo animal qualisque ut, cu nostro dissentias consectetuer mel. Ut admodum conceptam mei, cu eam tation fabulas abhorreant. His ex mandamus.',
-    },
-    {
-      key: '3',
-      title: 'The best app to increase your productivity',
-      content: 'An vim odio ocurreret consetetur, justo constituto ex mea. Quidam facilisis vituperata pri ne. Id nostrud gubergren urbanitas sed, quo summo animal qualisque ut, cu nostro dissentias consectetuer mel. Ut admodum conceptam mei, cu eam tation fabulas abhorreant. His ex mandamus.',
-    },
+   
+    
   ]
 
 function Home() {
@@ -35,39 +27,48 @@ function Home() {
 
    
     return (
-        <div className="container">
-               <div id="hero" className="heroBlock">
-      <Carousel>
-        {items.map(item => {
-          return (
-            <div key={item.key} className="container-fluid">
-              <div className="content">
-                <h3>{item.title}</h3>
-                <p>{item.content}</p>
-                <div className="btnHolder">
-                  <Button type="primary" size="large">Learn More</Button>
-                  <Button size="large"><i className="fas fa-desktop"></i> Watch a Demo</Button>
-                </div>
-              </div>
-            </div>  
-          );
-        })}
-      </Carousel>
-    </div>
+      
+ 
+    <div className="heroBlock">
+     
 
-            <h1 className="my-4">Welcome to our merch store</h1> 
-            
   
-        
-
+        <div id="hero" className="heroBlock">
           
-            <p>Press the menu at the top left side to see the products.</p>
-            <p>
-                Press the avatar icon on the top right to sign in or create an
-                account.
-            </p>
+          <Carousel>
+          <div className="container-fluid">
+                  <div className="content">
+                  <h3 className="content">Welcome to our merch store</h3> 
+                  <div className="btnHolder">
+                  <Button type="primary" href="http://localhost:3000/login"  size="large">Sign In</Button>
+                  <Button size="large" href="http://localhost:3000/products"> <i className="fas fa-desktop"></i> Shop Now</Button>
+                </div>
+                    
+                    
+                  </div>
+                </div>  
+          
+            {items.map(item => {
+              return (
+                <div key={item.key} className="container-fluid">
+                  <div className="content">
+                    <h3>{item.title}</h3>
+                    <p>{item.content}</p>
+                   
+                  </div>
+                </div>  
+              );
+            })}
+                </Carousel>
+            </div>
+      
+        
             <pre>{JSON.stringify(data, null, 2)}</pre>
-        </div>
+        
+       
+    </div>
+        
+        
     );
 }
 
