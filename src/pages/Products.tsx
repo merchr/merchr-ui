@@ -13,6 +13,7 @@ import ImageListItemBar from "@mui/material/ImageListItemBar";
 import Grid from "@mui/material/Grid";
 import styles from "./Products.module.scss";
 import { Link } from "react-router-dom";
+import { getProductImage } from "../util/images";
 
 function Products() {
     const [products, setProducts] = React.useState<Product[]>([]);
@@ -98,26 +99,8 @@ function Products() {
                                     >
                                         <CardMedia
                                             component="img"
-                                            height="340"
-                                            image={((): string => {
-                                                if (item.id === 1) {
-                                                    return "/tshirt.png";
-                                                }
-
-                                                if (item.id === 2) {
-                                                    return "/mug.png";
-                                                }
-
-                                                if (item.id === 3) {
-                                                    return "/notebook.png";
-                                                }
-
-                                                if (item.id === 4) {
-                                                    return "/bag.png";
-                                                }
-
-                                                return "";
-                                            })()}
+                                            height="200"
+                                            image={getProductImage(item.id)}
                                             alt="green iguana"
                                         />
                                         <CardContent>

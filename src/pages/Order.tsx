@@ -5,6 +5,7 @@ import { UserContext } from "../util/userContext";
 import { Order, Product } from "../util/types";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { getOrdersOfUser, getOrderWithId, getProducts } from "../util/queries";
+import { getProductImage } from "../util/images";
 
 function Orders() {
     const { user } = useContext(UserContext);
@@ -120,45 +121,66 @@ function Orders() {
                 const category = product.category;
 
                 return (
-                    <div key={index} className="my-4 mx-4">
-                        <h5
-                            className="my-4"
-                            style={{ display: "flex", alignItems: "center" }}
-                        >
-                            <KeyboardArrowRightIcon color="info" />
-                            <span>{category.Name}</span>
-                            <span>&nbsp;</span>
-                            <span style={{ fontWeight: "normal" }}>
-                                &nbsp;{`($${category.price})`}
-                            </span>
-                            <span style={{ fontWeight: "lighter" }}>
-                                &nbsp;{`x${item.quanity}`}
-                            </span>
-                        </h5>
+                    <div
+                        key={index}
+                        className="my-4 mx-4"
+                        style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "30px",
+                        }}
+                    >
+                        <img
+                            src={getProductImage(category.id)}
+                            height={50}
+                            alt="tshirt"
+                        />
+                        <div>
+                            <h5
+                                className="my-4"
+                                style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                }}
+                            >
+                                <span>{category.Name}</span>
+                                <span>&nbsp;</span>
+                                <span style={{ fontWeight: "normal" }}>
+                                    &nbsp;{`($${category.price})`}
+                                </span>
+                                <span style={{ fontWeight: "lighter" }}>
+                                    &nbsp;{`x${item.quanity}`}
+                                </span>
+                            </h5>
 
-                        <div key={product.id}>
-                            <p style={{ textIndent: "50px" }}>
-                                {product.color?.name && (
-                                    <span>
-                                        Color:{" "}
-                                        <strong>{product.color?.name}</strong>
-                                    </span>
-                                )}
-                                {product.sex?.type && (
-                                    <span>
-                                        {", "}
-                                        Sex:{" "}
-                                        <strong>{product.sex?.type}</strong>
-                                    </span>
-                                )}
-                                {product.size?.name && (
-                                    <span>
-                                        {", "}
-                                        Size:{" "}
-                                        <strong>{product.size?.name}</strong>
-                                    </span>
-                                )}
-                            </p>
+                            <div key={product.id}>
+                                <p>
+                                    {product.color?.name && (
+                                        <span>
+                                            Color:{" "}
+                                            <strong>
+                                                {product.color?.name}
+                                            </strong>
+                                        </span>
+                                    )}
+                                    {product.sex?.type && (
+                                        <span>
+                                            {", "}
+                                            Sex:{" "}
+                                            <strong>{product.sex?.type}</strong>
+                                        </span>
+                                    )}
+                                    {product.size?.name && (
+                                        <span>
+                                            {", "}
+                                            Size:{" "}
+                                            <strong>
+                                                {product.size?.name}
+                                            </strong>
+                                        </span>
+                                    )}
+                                </p>
+                            </div>
                         </div>
                     </div>
                 );
