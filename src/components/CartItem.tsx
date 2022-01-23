@@ -37,7 +37,7 @@ const CartItem = ({ productAmountPair, addToCart, removeFromCart }: Props) => {
             size="small"
             disableElevation
             variant="contained"
-            onClick={() => addToCart(productAmountPair[0])}
+            onClick={() => addToCart(productAmountPair[0].id)}
           >
             +
           </Button>

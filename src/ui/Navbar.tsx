@@ -41,14 +41,11 @@ function Navbar() {
     };
 
     const handleRemoveFromCart = (id: number) => {
-        // setCartItems((prev) =>
-        //     prev.reduce((acc, item) => {
-        //         if (item === id) {
-        //             return [...acc, item];
-        //         }
-        //     }, [] as any[])
-        // );
-        setUser({ ...user, cart: [...user.cart, id] });
+        user.cart.find((item) => item === id &&
+            delete user.cart[user.cart.indexOf(item)]
+        );
+        setUser({ ...user, cart: user.cart })
+        console.log("usercart", user.cart);
     };
 
     return (
@@ -103,14 +100,14 @@ function Navbar() {
                                                         pathname: "/cart",
                                                     }}
                                                 >
-                                                     <button className="btn btn-primary"> See my Cart</button>
+                                                    <button className="btn btn-primary"> See my Cart</button>
                                                 </Link>
                                                 <Link
                                                     to={{
                                                         pathname: "/checkout",
                                                     }}
                                                 >
-                                                     <button className="btn btn-secondary">Checkout</button>
+                                                    <button className="btn btn-secondary">Checkout</button>
                                                 </Link>
                                             </Popover>
                                         </div>

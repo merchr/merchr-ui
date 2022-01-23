@@ -26,14 +26,21 @@ function App() {
     const [user, setUser] = useState<User>({ cart: [] });
 
     const value = useMemo(() => ({ user, setUser }), [user, setUser]);
+
     const handleAddToCart = (clickedItemId: number) => {
-        setUser({...user, cart: [...user.cart, clickedItemId]});
+        setUser({ ...user, cart: [...user.cart, clickedItemId] });
     };
 
     const handleRemoveFromCart = (id: number) => {
-        setUser({...user, cart: [...user.cart, id]});
+        const handleRemoveFromCart = (id: number) => {
+            user.cart.find((item) => item === id &&
+                delete user.cart[user.cart.indexOf(item)]
+            );
+            setUser({ ...user, cart: user.cart })
+            console.log("usercart", user.cart);
+        };
     };
-    
+
     useEffect(() => {
         if (!user.id) {
             const email = localStorage.getItem(USER_EMAIL);
@@ -87,7 +94,7 @@ function App() {
         <UserContext.Provider value={value}>
             <Router>
                 <div>
-                
+
                     <Navbar />
                     <Routes>
                         <Route path="/login" element={<Login />} />
@@ -97,9 +104,9 @@ function App() {
                         <Route path="/products" element={<Products />} />
                         <Route path="/product/" element={<Product />} />
                         <Route path="/cart" element={<Cart
-                                    addToCart={handleAddToCart}
-                                    removeFromCart={handleRemoveFromCart}
-                                />} />
+                            addToCart={handleAddToCart}
+                            removeFromCart={handleRemoveFromCart}
+                        />} />
                         <Route path="/checkout" element={<Checkout />} />
                         <Route
                             path="/confirmation"
@@ -112,8 +119,8 @@ function App() {
                     </Routes>
                 </div>
             </Router>
-         
-        
+
+
 
             <Footer />
         </UserContext.Provider>
