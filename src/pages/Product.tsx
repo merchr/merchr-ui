@@ -55,7 +55,6 @@ function ProductPage() {
   const size = products.map(item => item.size?.name).filter((v, i, a) => a.indexOf(v) === i);
 
   const selectedProduct : Product[]= products.filter(item => item?.size?.name === selectedSize && item.color?.name === selectedColor && item.sex?.type === selectedSex);
-  console.log("selectedProduct", selectedProduct);
 
   const handleAddToCart = (clickedItemId: any) => {
     setUser({...user, cart: [...user.cart, clickedItemId]});

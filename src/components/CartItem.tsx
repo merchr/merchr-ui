@@ -6,44 +6,44 @@ import { Wrapper } from "./CartItem.styles";
 
 
 type Props = {
-  item: Product;
+  productAmountPair: [any,any];
   addToCart: (clickedItem: any) => void;
   removeFromCart: (id: number) => void;
 };
 
-const CartItem = ({ item, addToCart, removeFromCart }: Props) => {
+const CartItem = ({ productAmountPair, addToCart, removeFromCart }: Props) => {
 
   return (
     <>
-    {item?.id? ( 
+    {productAmountPair[0]?.id? ( 
     <Wrapper>
       <div>
-        <h3>{item?.category?.Name}</h3>
+        <h3>{productAmountPair[0]?.category?.Name}</h3>
         <div className="information">
-          <p>Price: ${item?.price}</p>
-          {/* <p>Total: ${(item.amount * item.price).toFixed(2)}</p> */}
+          <p>Price: ${productAmountPair[0]?.category.price}</p>
+          <p>Total: ${(productAmountPair[1] * productAmountPair[0].category.price).toFixed(2)}</p>
         </div>
         <div className="buttons">
           <Button
             size="small"
             disableElevation
             variant="contained"
-            onClick={() => removeFromCart(item?.id)}
+            onClick={() => removeFromCart(productAmountPair[0]?.id)}
           >
             -
           </Button>
-          {/* <p>{item.amount}</p> */}
+          <p>{productAmountPair[1]}</p>
           <Button
             size="small"
             disableElevation
             variant="contained"
-            onClick={() => addToCart(item)}
+            onClick={() => addToCart(productAmountPair[0])}
           >
             +
           </Button>
         </div>
       </div>
-      {/* <img src={item.image} alt={item?.category.name} /> */}
+      {/* <img src={productAmountPair[0].image} alt={productAmountPair[0]?.category.name} /> */}
     </Wrapper>
     ) : (<></>)}
     </>

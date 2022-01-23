@@ -32,24 +32,27 @@ const Cart = ({ addToCart, removeFromCart }: Props) => {
         }
       });
     });
+
     setCartItems(arr);
-    console.log("arr", arr);
-  }, [user,data]);
+  }, [user, data]);
+
+  const productsWithAmount = cartItems.reduce((acc, e) => acc.set(e, (acc.get(e) || 0) + 1), new Map());
+  const productAmountPairs= [...Array.from(productsWithAmount.entries())]; // to get the pairs [element, frequency]
 
   const calculateTotal = (items: any[]) =>
-    items.reduce((acc, item) => acc + item.category.price??0, 0);
+    items.reduce((acc, item) => acc + item.category.price ?? 0, 0);
 
   return (
     <Wrapper>
       <h2>Your Cart</h2>
-      {cartItemIds.length === 0 ? <p>No items in cart.</p> : null}
-      {cartItems.map((item) => (
-        <CartItem
-          key={item.id}
-          item={item}
-          addToCart={addToCart}
-          removeFromCart={removeFromCart}
-        />
+      {productAmountPairs.length === 0 ? <p>No items in cart.</p> : null}
+      {productAmountPairs.map((item, index) => (
+          <CartItem
+            key={index}
+            productAmountPair={item}
+            addToCart={addToCart}
+            removeFromCart={removeFromCart}
+          />
       ))}
       <h2>Total: ${calculateTotal(cartItems).toFixed(2)}</h2>
     </Wrapper>
