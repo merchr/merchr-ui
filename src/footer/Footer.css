@@ -1,11 +1,11 @@
 .footer-dark {
-  padding: 50px 0;
-
   left: 0px;
+  position: relative;
   bottom: 0px;
+  padding: 50px 0;
   width: 100%;
   color: black;
-  background-color: #cecece;
+  background-color: #8d8d8d;
 }
 
 .footer-dark h3 {

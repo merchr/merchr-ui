@@ -13,6 +13,7 @@ import ImageListItemBar from "@mui/material/ImageListItemBar";
 import Grid from "@mui/material/Grid";
 import styles from "./Products.module.scss";
 import { Link } from "react-router-dom";
+import { getProductImage } from "../util/images";
 
 function Products() {
     const [products, setProducts] = React.useState<Product[]>([]);
@@ -52,65 +53,78 @@ function Products() {
     });
 
     return (
-        <div className={styles.container}>
-            <div className="my-4">
-                <label htmlFor="search">Search products</label>
-                <input
-                    className="form-control"
-                    type="text"
-                    name="search"
-                    id="search"
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                />
+        <div className="container">
+            <div className="row mt-5">
+                <div className="col fs-1 mx-auto text-center">Products</div>
             </div>
-            <Grid container spacing={2}>
-                {categories?.map((item) => (
-                    <Grid item xs={12} md={4}>
-                        <Card sx={{ maxWidth: 400 }}>
-                            <CardActionArea>
-                                <Link
-                                    to={{
-                                        pathname: "/product",
-                                    }}
-                                    state={{ categoryId: item.id }}
-                                    style={{
-                                        textDecoration: "none",
-                                        color: "black",
-                                    }}
-                                >
-                                    <CardMedia
-                                        component="img"
-                                        height="140"
-                                        image="https://images.unsplash.com/photo-1597645587822-e99fa5d45d25?w=248&fit=crop&auto=format"
-                                        alt="green iguana"
-                                    />
-                                    <CardContent>
-                                        <Typography
-                                            gutterBottom
-                                            variant="h5"
-                                            component="div"
-                                        >
-                                            {item.Name}
-                                        </Typography>
-                                        <Typography
-                                            variant="body2"
-                                            color="text.secondary"
-                                        >
-                                            {item.Description}
-                                        </Typography>
-                                    </CardContent>
-                                </Link>
-                            </CardActionArea>
-                            <CardActions>
-                                <Button size="small" color="primary">
-                                    Share
-                                </Button>
-                            </CardActions>
-                        </Card>
-                    </Grid>
-                ))}
-            </Grid>
+
+            <div className={styles.container}>
+                <div
+                    style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        flexWrap: "wrap",
+                        columnGap: "15px",
+                        rowGap: "5px",
+                    }}
+                >
+                    <label htmlFor="search" className="mr-3">
+                        Search products by name:
+                    </label>
+                    <input
+                        className="form-control"
+                        type="text"
+                        name="search"
+                        id="search"
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                    />
+                </div>
+                <hr className="my-5" />
+                <Grid container spacing={2}>
+                    {categories?.map((item) => (
+                        <Grid item xs={12} md={4}>
+                            <Card sx={{ maxWidth: 400 }}>
+                                <CardActionArea>
+                                    <Link
+                                        to={{
+                                            pathname: "/product",
+                                        }}
+                                        state={{ categoryId: item.id }}
+                                        style={{
+                                            textDecoration: "none",
+                                            color: "black",
+                                        }}
+                                    >
+                                        <CardMedia
+                                            component="img"
+                                            height="200"
+                                            image={getProductImage(item.id)}
+                                            alt="green iguana"
+                                        />
+                                        <CardContent>
+                                            <Typography
+                                                gutterBottom
+                                                variant="h5"
+                                                component="div"
+                                            >
+                                                {item.Name}
+                                            </Typography>
+                                            <Typography
+                                                variant="body2"
+                                                color="text.secondary"
+                                            >
+                                                {item.Description}
+                                            </Typography>
+                                        </CardContent>
+                                    </Link>
+                                </CardActionArea>
+                            </Card>
+                        </Grid>
+                    ))}
+                </Grid>
+            </div>
         </div>
     );
 }
