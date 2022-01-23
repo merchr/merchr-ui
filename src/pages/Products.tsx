@@ -85,7 +85,7 @@ function Products() {
                 <Grid container spacing={2}>
                     {categories?.map((item) => (
                         <Grid item xs={12} md={4}>
-                            <Card sx={{ maxWidth: 400 }}>
+                            <Card sx={{ maxWidth: 300 }}>
                                 <CardActionArea>
                                     <Link
                                         to={{
@@ -99,7 +99,7 @@ function Products() {
                                     >
                                         <CardMedia
                                             component="img"
-                                            height="200"
+                                            height="300"
                                             image={getProductImage(item.id)}
                                             alt="green iguana"
                                         />

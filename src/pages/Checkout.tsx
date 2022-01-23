@@ -6,7 +6,7 @@ import { Product } from "../util/types";
 import { UserContext } from "../util/userContext";
 
 function Checkout() {
-    const { user } = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
 
     const { cart } = user;
 
@@ -33,6 +33,10 @@ function Checkout() {
 
     if (orderId) {
         return <Navigate to="/confirmation" state={{ orderId }} />;
+    }
+
+    if (cart.length === 0) {
+        return <Navigate to="/products" />;
     }
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {

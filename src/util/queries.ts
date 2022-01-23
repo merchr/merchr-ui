@@ -78,7 +78,9 @@ export const createOrder = async (
                 data: {
                     userId,
                     confirmed: true,
-                    products: `[${products.toString()}]`,
+                    products: `[${products
+                        .filter((number) => !!number)
+                        .toString()}]`,
                 },
             }),
         });

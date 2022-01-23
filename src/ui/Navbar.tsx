@@ -13,26 +13,26 @@ import { UserContext } from "../util/userContext";
 import { USER_EMAIL, USER_PASSWORD } from "../util/constants";
 import Cart from "../components/Cart";
 import styled from "styled-components";
-import Popover from '@mui/material/Popover';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state';
+import Popover from "@mui/material/Popover";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import PopupState, { bindTrigger, bindPopover } from "material-ui-popup-state";
 
 const Wrapper = styled.div`
-  margin: 40px;
+    margin: 40px;
 `;
 
 const StyledButton = styled(IconButton)`
-  position: fixed;
-  z-index: 100;
-  right: 20px;
+    position: fixed;
+    z-index: 100;
+    right: 20px;
 `;
 
 function Navbar() {
     const [open, setOpen] = React.useState<boolean>(false);
 
     const { user, setUser } = useContext(UserContext);
-    const getTotalItems = user.cart.length;
+    const getTotalItems = user.cart.filter((number) => !!number).length;
 
     console.log("usr cart", user.cart);
     const handleAddToCart = (clickedItemId: number) => {
@@ -40,16 +40,16 @@ function Navbar() {
     };
 
     const handleRemoveFromCart = (id: number) => {
-        user.cart.find((item) => item === id &&
-            delete user.cart[user.cart.indexOf(item)]
+        user.cart.find(
+            (item) => item === id && delete user.cart[user.cart.indexOf(item)]
         );
-        setUser({ ...user, cart: user.cart })
+        setUser({ ...user, cart: user.cart });
         console.log("usercart", user.cart);
     };
 
     return (
-        <nav>
-            <div className="container-fluid">
+        <nav className="bg-primary">
+            <div className="container">
                 <div className="row align-items-center bg-primary">
                     <div className="col px-0">
                         <button className="btn" onClick={() => setOpen(true)}>
@@ -67,46 +67,61 @@ function Navbar() {
                         erchr
                     </div>
                     <div className="col-auto">
-                        <div className="row">
+                        <div className="row" style={{ alignItems: "center" }}>
                             <div className="col-auto px-0">
-                                <PopupState variant="popover" popupId="demo-popup-popover">
+                                <PopupState
+                                    variant="popover"
+                                    popupId="demo-popup-popover"
+                                >
                                     {(popupState) => (
                                         <div>
-                                            <StyledButton {...bindTrigger(popupState)}>
-                                                <Badge badgeContent={getTotalItems} color="error">
+                                            <StyledButton
+                                                {...bindTrigger(popupState)}
+                                            >
+                                                <Badge
+                                                    badgeContent={getTotalItems}
+                                                    color="error"
+                                                >
                                                     <AddShoppingCart />
                                                 </Badge>
                                             </StyledButton>
                                             <Popover
                                                 {...bindPopover(popupState)}
                                                 anchorOrigin={{
-                                                    vertical: 'bottom',
-                                                    horizontal: 'center',
+                                                    vertical: "bottom",
+                                                    horizontal: "center",
                                                 }}
                                                 transformOrigin={{
-                                                    vertical: 'top',
-                                                    horizontal: 'center',
+                                                    vertical: "top",
+                                                    horizontal: "center",
                                                 }}
                                                 style={{ maxHeight: "450px" }}
                                             >
                                                 <Cart
                                                     isPopover={true}
                                                     addToCart={handleAddToCart}
-                                                    removeFromCart={handleRemoveFromCart}
+                                                    removeFromCart={
+                                                        handleRemoveFromCart
+                                                    }
                                                 />
                                                 <Link
                                                     to={{
                                                         pathname: "/cart",
                                                     }}
                                                 >
-                                                    <button className="btn btn-primary"> See my Cart</button>
+                                                    <button className="btn btn-primary">
+                                                        {" "}
+                                                        See my Cart
+                                                    </button>
                                                 </Link>
                                                 <Link
                                                     to={{
                                                         pathname: "/checkout",
                                                     }}
                                                 >
-                                                    <button className="btn btn-secondary">Checkout</button>
+                                                    <button className="btn btn-secondary">
+                                                        Checkout
+                                                    </button>
                                                 </Link>
                                             </Popover>
                                         </div>
