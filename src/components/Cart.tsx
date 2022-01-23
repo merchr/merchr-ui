@@ -45,7 +45,7 @@ const Cart = ({ addToCart, removeFromCart, isPopover }: Props) => {
     items.reduce((acc, item) => acc + item.category.price ?? 0, 0);
 
   return (
-    <div style={{ display: "block", maxWidth: "500px", margin: "auto", padding: 20 }}>
+    <div style={{ display: "block", maxWidth: "600px", margin: "auto", padding: 20 }}>
       {/* <h5>Your Cart</h5> */}
       {productAmountPairs.length === 0 ? <p>No items in cart.</p> : null}
       {productAmountPairs.map((item, index) => (

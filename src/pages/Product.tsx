@@ -58,9 +58,9 @@ function ProductPage() {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const [selectedColor, setSelectedColor] = useState('Red');
-    const [selectedSex, setSelectedSex] = useState('Men');
-    const [selectedSize, setSelectedSize] = useState('S');
+    const [selectedColor, setSelectedColor] = useState("");
+    const [selectedSex, setSelectedSex] = useState("");
+    const [selectedSize, setSelectedSize] = useState("");
 
     const products = data?.data?.filter((item: any) =>
         item.category.id === categoryId
@@ -70,7 +70,7 @@ function ProductPage() {
     const sex = products.map(item => item.sex?.type).filter((v, i, a) => a.indexOf(v) === i);
     const size = products.map(item => item.size?.name).filter((v, i, a) => a.indexOf(v) === i);
 
-    const selectedProduct: Product[] = products.filter(item => item?.size?.name === selectedSize && item.color?.name === selectedColor && item.sex?.type === selectedSex);
+    const selectedProduct: Product[] = products.filter(item =>  item.color?.name === selectedColor &&  (selectedSize ? (item?.size?.name === selectedSize): true && selectedSex ? (item.sex?.type === selectedSex): true));
 
     const handleAddToCart = (clickedItemId: any) => {
         setUser({ ...user, cart: [...user.cart, clickedItemId] });
@@ -100,11 +100,6 @@ function ProductPage() {
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>
-                            <CardActions>
-                                <Button size="small" color="primary">
-                                    Share
-                                </Button>
-                            </CardActions>
                         </Card>
                     </Grid>
                     <Grid item xs={6} md={4}>
