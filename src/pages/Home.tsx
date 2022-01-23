@@ -5,13 +5,16 @@ import { Carousel, Button } from "antd";
 import "./Home.module.scss";
 
 import "../App.css";
+import { Link } from "react-router-dom";
 
 const items = [
     {
         key: "1",
-        title: "Press the menu at the top left side to see the products",
-        content:
+        title: "Tips",
+        content: [
+            "Press the menu at the top left side to see the products.",
             "Press the avatar icon on the top right to sign in or create an account.",
+        ],
     },
 ];
 
@@ -34,20 +37,16 @@ function Home() {
                                 Welcome to our merch store
                             </h3>
                             <div className="btnHolder">
-                                <Button
-                                    type="primary"
-                                    href="http://localhost:3000/login"
-                                    size="large"
-                                >
-                                    Sign In
-                                </Button>
-                                <Button
-                                    size="large"
-                                    href="http://localhost:3000/products"
-                                >
-                                    {" "}
-                                    <i className="fas fa-desktop"></i> Shop Now
-                                </Button>
+                                <Link to="/login">
+                                    <button className="btn btn-secondary">
+                                        Sign in
+                                    </button>
+                                </Link>
+                                <Link to="/products">
+                                    <button className="btn btn-primary">
+                                        Shop now
+                                    </button>
+                                </Link>
                             </div>
                         </div>
                     </div>
@@ -57,7 +56,9 @@ function Home() {
                             <div key={item.key} className="container-fluid">
                                 <div className="content">
                                     <h3>{item.title}</h3>
-                                    <p>{item.content}</p>
+                                    {item.content.map((sentence) => (
+                                        <p>{sentence}</p>
+                                    ))}
                                 </div>
                             </div>
                         );
