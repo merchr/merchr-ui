@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "antd/dist/antd.css";
 
-import { Carousel, Button } from "antd";
+import { Carousel } from "antd";
 import "./Home.module.scss";
 
 import "../App.css";
@@ -12,21 +12,14 @@ const items = [
         key: "1",
         title: "Tips",
         content: [
-            "Press the menu at the top left side to see the products.",
+            "Press the menu at the top left side to see other app pages.",
+            "Press the shopping cart icon to see items added to your order.",
             "Press the avatar icon on the top right to sign in or create an account.",
         ],
     },
 ];
 
 function Home() {
-    const [data, setData] = useState();
-
-    useEffect(() => {
-        fetch("http://localhost:1337/api/products")
-            .then((res) => res.json())
-            .then((res) => setData(res));
-    }, []);
-
     return (
         <div className="heroBlock">
             <div id="hero" className="heroBlock">

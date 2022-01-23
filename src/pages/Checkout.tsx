@@ -35,7 +35,7 @@ function Checkout() {
         return <Navigate to="/confirmation" state={{ orderId }} />;
     }
 
-    if (cart.length === 0) {
+    if (cart.filter((number) => number).length === 0) {
         return <Navigate to="/products" />;
     }
 
