@@ -6,7 +6,7 @@ import { Product } from "../util/types";
 import { UserContext } from "../util/userContext";
 
 function Checkout() {
-    const { user } = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
 
     const { cart } = user;
 

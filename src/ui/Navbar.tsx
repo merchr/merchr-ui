@@ -32,7 +32,7 @@ function Navbar() {
     const [open, setOpen] = React.useState<boolean>(false);
 
     const { user, setUser } = useContext(UserContext);
-    const getTotalItems = user.cart.length;
+    const getTotalItems = user.cart.filter((number) => !!number).length;
 
     console.log("usr cart", user.cart);
     const handleAddToCart = (clickedItemId: number) => {

@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import CheckIcon from "@mui/icons-material/Check";
 import { Link, Navigate, useLocation } from "react-router-dom";
+import { UserContext } from "../util/userContext";
 
 function Confirmation() {
+    const { user, setUser } = useContext(UserContext);
+
     const location = useLocation();
     const state = location?.state as { orderId: number };
+
+    useEffect(() => {
+        setUser({ ...user, cart: [] });
+    }, []);
 
     if (!state?.orderId) {
         return <Navigate to="/" />;
