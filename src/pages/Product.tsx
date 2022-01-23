@@ -78,16 +78,20 @@ function ProductPage() {
 
     return (
         <>
+            <div className="container">
+            <div className="row mt-5">
+                <div className="col fs-1 mx-auto text-center">Products of Category {products[0]?.category.Name}</div>
+            </div>
             <div className={styles.container}>
-                <div className={styles.title}>Products of Category {products[0]?.category.Name}</div>
-                <Grid container spacing={2}>
+               <Grid container spacing={2}>
 
-                    <Grid item xs={6} md={8}>
-                        <Card sx={{ maxWidth: 400 }}>
+                    <Grid item xs={12} md={8}>
+                        <Card sx={{ maxWidth: 700 }}>
                             <CardActionArea>
                                 <CardMedia
                                     component="img"
-                                    height="140"
+                                    height="300"
+                                    style={{maxWidth: "400px", objectFit: "contain"}}
                                     image={getProductImage(categoryId)}
                                     alt="green iguana"
                                 />
@@ -102,7 +106,7 @@ function ProductPage() {
                             </CardActionArea>
                         </Card>
                     </Grid>
-                    <Grid item xs={6} md={4}>
+                    <Grid item xs={12} md={4}>
                         <div className={styles.section}>
                             <FormControl component="fieldset">
                                 <FormLabel component="legend">Color</FormLabel>
@@ -152,7 +156,7 @@ function ProductPage() {
                         </div>
                     </Grid>
                 </Grid>
-                <Button variant="contained" startIcon={<AddShoppingCartIcon />} style={{ display: "flex" }} onClick={() => selectedProduct[0]?.id ? handleAddToCart(selectedProduct[0]?.id) : handleOpen()}>
+                <Button variant="contained" startIcon={<AddShoppingCartIcon />} style={{ display: "flex" , marginTop: "20px"}} onClick={() => selectedProduct[0]?.id ? handleAddToCart(selectedProduct[0]?.id) : handleOpen()}>
                     Add to Cart
                 </Button>
                 <Modal
@@ -170,6 +174,7 @@ function ProductPage() {
                         </Typography>
                     </Box>
                 </Modal>
+                </div>
             </div>
         </>
     );

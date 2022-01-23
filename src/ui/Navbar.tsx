@@ -34,7 +34,6 @@ function Navbar() {
     const { user, setUser } = useContext(UserContext);
     const getTotalItems = user.cart.filter((number) => !!number).length;
 
-    console.log("usr cart", user.cart);
     const handleAddToCart = (clickedItemId: number) => {
         setUser({ ...user, cart: [...user.cart, clickedItemId] });
     };
