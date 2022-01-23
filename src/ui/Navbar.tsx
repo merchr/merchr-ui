@@ -94,6 +94,7 @@ function Navbar() {
                                                 style={{ maxHeight: "450px" }}
                                             >
                                                 <Cart
+                                                    isPopover={true}
                                                     addToCart={handleAddToCart}
                                                     removeFromCart={handleRemoveFromCart}
                                                 />
@@ -102,7 +103,14 @@ function Navbar() {
                                                         pathname: "/cart",
                                                     }}
                                                 >
-                                                    <Button> See my Cart</Button>
+                                                     <button className="btn btn-primary"> See my Cart</button>
+                                                </Link>
+                                                <Link
+                                                    to={{
+                                                        pathname: "/checkout",
+                                                    }}
+                                                >
+                                                     <button className="btn btn-secondary">Checkout</button>
                                                 </Link>
                                             </Popover>
                                         </div>

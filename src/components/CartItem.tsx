@@ -18,7 +18,7 @@ const CartItem = ({ productAmountPair, addToCart, removeFromCart }: Props) => {
     {productAmountPair[0]?.id? ( 
     <Wrapper>
       <div>
-        <h3>{productAmountPair[0]?.category?.Name}</h3>
+        <h5>{productAmountPair[0]?.category?.Name}</h5>
         <div className="information">
           <p>Price: ${productAmountPair[0]?.category.price}</p>
           <p>Total: ${(productAmountPair[1] * productAmountPair[0].category.price).toFixed(2)}</p>

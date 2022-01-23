@@ -16,6 +16,7 @@ import styled from "styled-components";
 import { UserContext } from "../util/userContext";
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import styles from './Products.module.scss';
+import { getProductImage } from "../util/images";
 
 const Wrapper = styled.div`
   margin: 40px;
@@ -72,7 +73,7 @@ function ProductPage() {
                        <CardMedia
                            component="img"
                            height="140"
-                           image="https://images.unsplash.com/photo-1597645587822-e99fa5d45d25?w=248&fit=crop&auto=format"
+                           image={getProductImage(categoryId)}
                            alt="green iguana"
                        />
                        <CardContent>

@@ -4,13 +4,15 @@ import { Wrapper } from "./Cart.styles";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../util/userContext";
 import { Product } from "../util/types";
+import { Link } from "react-router-dom";
 
 type Props = {
   addToCart: (clickedItem: any) => void;
   removeFromCart: (id: number) => void;
+  isPopover?: boolean;
 };
 
-const Cart = ({ addToCart, removeFromCart }: Props) => {
+const Cart = ({ addToCart, removeFromCart, isPopover }: Props) => {
 
   const [data, setData] = useState<{ data: Product[] }>()
   const { user, setUser } = useContext(UserContext);
@@ -37,25 +39,32 @@ const Cart = ({ addToCart, removeFromCart }: Props) => {
   }, [user, data]);
 
   const productsWithAmount = cartItems.reduce((acc, e) => acc.set(e, (acc.get(e) || 0) + 1), new Map());
-  const productAmountPairs= [...Array.from(productsWithAmount.entries())]; // to get the pairs [element, frequency]
+  const productAmountPairs = [...Array.from(productsWithAmount.entries())]; // to get the pairs [element, frequency]
 
   const calculateTotal = (items: any[]) =>
     items.reduce((acc, item) => acc + item.category.price ?? 0, 0);
 
   return (
-    <Wrapper>
-      <h2>Your Cart</h2>
+    <div style={{ display: "block", maxWidth: "500px", margin: "auto", padding: 20 }}>
+      {/* <h5>Your Cart</h5> */}
       {productAmountPairs.length === 0 ? <p>No items in cart.</p> : null}
       {productAmountPairs.map((item, index) => (
-          <CartItem
-            key={index}
-            productAmountPair={item}
-            addToCart={addToCart}
-            removeFromCart={removeFromCart}
-          />
+        <CartItem
+          key={index}
+          productAmountPair={item}
+          addToCart={addToCart}
+          removeFromCart={removeFromCart}
+        />
       ))}
-      <h2>Total: ${calculateTotal(cartItems).toFixed(2)}</h2>
-    </Wrapper>
+      <h4>Total: ${calculateTotal(cartItems).toFixed(2)}</h4>
+      <Link
+        to={{
+          pathname: "/checkout",
+        }}
+      >
+       {!isPopover && <button className="btn btn-secondary">Checkout</button>}
+      </Link>
+    </div>
   );
 };
 
