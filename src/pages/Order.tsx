@@ -71,14 +71,15 @@ function Orders() {
         const firstProductIndex = productsAndQuantities.findIndex(
             ({ product }) => product.id === currProduct.id
         );
+        console.log(index, currProduct, firstProductIndex);
+
         if (firstProductIndex !== index) {
             productsAndQuantities[firstProductIndex].quanity++;
             productsAndQuantities.splice(index, 1);
+        } else {
+            index++;
         }
-        index++;
     }
-
-    console.log(productsAndQuantities);
 
     // const categories = products
     //     .map((product) => product.category)
