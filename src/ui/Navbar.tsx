@@ -112,15 +112,20 @@ function Navbar() {
                                                         See my Cart
                                                     </button>
                                                 </Link>
-                                                <Link
-                                                    to={{
-                                                        pathname: "/checkout",
-                                                    }}
-                                                >
-                                                    <button className="btn btn-secondary">
-                                                        Checkout
-                                                    </button>
-                                                </Link>
+                                                {user.cart.filter(
+                                                    (number) => number
+                                                ).length > 0 && (
+                                                    <Link
+                                                        to={{
+                                                            pathname:
+                                                                "/checkout",
+                                                        }}
+                                                    >
+                                                        <button className="btn btn-secondary">
+                                                            Checkout
+                                                        </button>
+                                                    </Link>
+                                                )}
                                             </Popover>
                                         </div>
                                     )}

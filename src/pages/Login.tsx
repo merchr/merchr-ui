@@ -6,16 +6,19 @@ import { UserContext } from "../util/userContext";
 function Login() {
     const userContext = useContext(UserContext);
 
+    // details of logged in user
     const { user, setUser } = userContext;
 
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [error, setError] = useState<string>("");
 
+    // check if redirected to this page via checkout page
     const location = useLocation();
     const state = location?.state as { from: string };
     const fromCheckout = state?.from === "checkout";
 
+    // redirect to homepage or to checkout if user is logged in
     if (user.id) {
         if (fromCheckout) {
             return <Navigate to="/checkout" />;
@@ -24,6 +27,7 @@ function Login() {
         return <Navigate to="/" />;
     }
 
+    // form handler
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 

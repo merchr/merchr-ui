@@ -12,10 +12,12 @@ function Signup() {
     const [phone, setPhone] = useState<string>("");
     const [error, setError] = useState<string>("");
 
+    // check if redirected from checkout page
     const location = useLocation();
     const state = location?.state as { from: string };
     const fromCheckout = state.from === "checkout";
 
+    // redirect to homepage or to checkout if user is logged in
     if (user.id) {
         if (fromCheckout) {
             return <Navigate to="/checkout" />;
@@ -24,6 +26,7 @@ function Signup() {
         return <Navigate to="/" />;
     }
 
+    // form handler
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
