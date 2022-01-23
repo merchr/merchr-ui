@@ -44,7 +44,6 @@ function Navbar() {
             (item) => item === id && delete user.cart[user.cart.indexOf(item)]
         );
         setUser({ ...user, cart: user.cart });
-        console.log("usercart", user.cart);
     };
 
     return (
