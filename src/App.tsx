@@ -27,14 +27,10 @@ function App() {
     };
 
     const handleRemoveFromCart = (id: number) => {
-        const handleRemoveFromCart = (id: number) => {
-            user.cart.find(
-                (item) =>
-                    item === id && delete user.cart[user.cart.indexOf(item)]
-            );
-            setUser({ ...user, cart: user.cart });
-            console.log("usercart", user.cart);
-        };
+        user.cart.find(
+            (item) => item === id && delete user.cart[user.cart.indexOf(item)]
+        );
+        setUser({ ...user, cart: user.cart });
     };
 
     useEffect(() => {
