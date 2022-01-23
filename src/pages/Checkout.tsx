@@ -35,6 +35,10 @@ function Checkout() {
         return <Navigate to="/confirmation" state={{ orderId }} />;
     }
 
+    if (cart.length === 0) {
+        return <Navigate to="/products" />;
+    }
+
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
