@@ -6,13 +6,16 @@ import { UserContext } from "../util/userContext";
 function Confirmation() {
     const { user, setUser } = useContext(UserContext);
 
+    // get order Id from router state
     const location = useLocation();
     const state = location?.state as { orderId: number };
 
+    // empty cart when user loads this page
     useEffect(() => {
         setUser({ ...user, cart: [] });
     }, []);
 
+    // redirect to home if no order has been confirmed
     if (!state?.orderId) {
         return <Navigate to="/" />;
     }

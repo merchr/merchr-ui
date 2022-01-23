@@ -7,9 +7,11 @@ import { getOrdersOfUser, getProducts } from "../util/queries";
 
 function Orders() {
     const { user } = useContext(UserContext);
+
     const [orders, setOrders] = useState<Order[]>([]);
     const [products, setProducts] = useState<Product[]>([]);
 
+    // fetch orders
     useEffect(() => {
         (async () => {
             if (user.id) {
@@ -19,6 +21,7 @@ function Orders() {
         })();
     }, [user]);
 
+    // fetch products
     useEffect(() => {
         (async () => {
             const products = await getProducts();

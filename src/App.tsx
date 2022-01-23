@@ -20,6 +20,7 @@ import Cart from "./components/Cart";
 function App() {
     const [user, setUser] = useState<User>({ cart: [] });
 
+    // defines the function to be supplied to other pages to see/edit current logged in user
     const value = useMemo(() => ({ user, setUser }), [user, setUser]);
 
     const handleAddToCart = (clickedItemId: number) => {
@@ -33,6 +34,7 @@ function App() {
         setUser({ ...user, cart: user.cart });
     };
 
+    // if user details found in local storage, authenticates the user automatically
     useEffect(() => {
         if (!user.id) {
             const email = localStorage.getItem(USER_EMAIL);

@@ -10,12 +10,14 @@ import { getProductImage } from "../util/images";
 function Orders() {
     const { user } = useContext(UserContext);
 
+    // get orderId from url
     const params = useParams();
     const orderId = Number(params?.id);
 
     const [order, setOrder] = useState<Order | null>(null);
     const [products, setProducts] = useState<Product[]>([]);
 
+    // fetch order details
     useEffect(() => {
         (async () => {
             if (orderId) {
@@ -27,6 +29,7 @@ function Orders() {
         })();
     }, [orderId, user]);
 
+    // fetch products
     useEffect(() => {
         (async () => {
             const products = await getProducts();
@@ -34,6 +37,7 @@ function Orders() {
         })();
     }, []);
 
+    // if order is not found display error message
     if (!order) {
         return (
             <div className="container">
@@ -46,6 +50,7 @@ function Orders() {
         );
     }
 
+    // calculate total price
     const totalPrice = order.attributes.products
         .map(
             (productId) =>
@@ -53,6 +58,7 @@ function Orders() {
         )
         .reduce((sum, curr) => sum + curr, 0);
 
+    // filter products that belong to order
     const productsInOrder = order.attributes.products
         .map(
             (productId) =>
@@ -60,6 +66,7 @@ function Orders() {
         )
         .filter((product) => product);
 
+    // group duplicate products
     const productsAndQuantities = productsInOrder.map((product) => ({
         product,
         quanity: 1,
@@ -80,6 +87,8 @@ function Orders() {
             index++;
         }
     }
+
+    // functions to separate products into categories
 
     // const categories = products
     //     .map((product) => product.category)

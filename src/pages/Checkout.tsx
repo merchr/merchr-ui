@@ -1,15 +1,15 @@
-import { wrap } from "module";
 import React, { useState, useEffect, useContext } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { createOrder, getProducts } from "../util/queries";
 import { Product } from "../util/types";
 import { UserContext } from "../util/userContext";
 
 function Checkout() {
-    const { user, setUser } = useContext(UserContext);
+    const { user } = useContext(UserContext);
 
     const { cart } = user;
 
+    // variables to hold user data in checkout
     const [address, setAddress] = useState<string>(user.address ?? "");
     const [cardNumber, setCardNumber] = useState<string>("");
     const [cardName, setCardName] = useState<string>("");
@@ -17,9 +17,11 @@ function Checkout() {
     const [cardCvc, setCardCvc] = useState<string>("");
     const [error, setError] = useState<string>("");
 
-    const [products, setProducts] = useState<Product[]>([]);
+    // variables to hold curr order details
     const [orderId, setOrderId] = useState<number>();
+    const [products, setProducts] = useState<Product[]>([]);
 
+    // fetch products
     useEffect(() => {
         (async () => {
             const products = await getProducts();
@@ -27,18 +29,22 @@ function Checkout() {
         })();
     }, []);
 
+    // if user is not logged in, redirect to login page
     if (!user.id) {
         return <Navigate to="/login" state={{ from: "checkout" }} />;
     }
 
+    // if order is condifrmed, redirect to confirmation page
     if (orderId) {
         return <Navigate to="/confirmation" state={{ orderId }} />;
     }
 
+    // if order is empty, redirect to products page
     if (cart.filter((number) => number).length === 0) {
         return <Navigate to="/products" />;
     }
 
+    // form handler
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
@@ -60,6 +66,7 @@ function Checkout() {
         }
     };
 
+    // total order price
     const totalPrice = cart
         .map(
             (productId) =>
