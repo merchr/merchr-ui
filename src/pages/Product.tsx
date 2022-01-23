@@ -156,7 +156,7 @@ function ProductPage() {
                         </div>
                     </Grid>
                 </Grid>
-                <Button variant="contained" startIcon={<AddShoppingCartIcon />} style={{ display: "flex" , marginTop: "20px"}} onClick={() => selectedProduct[0]?.id ? handleAddToCart(selectedProduct[0]?.id) : handleOpen()}>
+                <Button variant="contained" startIcon={<AddShoppingCartIcon />} style={{ display: "flex" , margin: "20px"}} onClick={() => selectedProduct[0]?.id ? handleAddToCart(selectedProduct[0]?.id) : handleOpen()}>
                     Add to Cart
                 </Button>
                 <Modal
