@@ -105,7 +105,7 @@ function ProductPage() {
                                     component="img"
                                     height="300"
                                     style={{maxWidth: "400px", objectFit: "contain"}}
-                                    image={getProductImage(categoryId)}
+                                    image={getProductImage(categoryId, selectedColor)}
                                     alt="green iguana"
                                 />
                                 <CardContent>

@@ -1,10 +1,15 @@
-export const getProductImage = (categoryId: number): string => {
+import { isGetAccessorDeclaration } from "typescript";
+
+export const getProductImage = (categoryId: number, color?: string): string => {
     if (categoryId === 1) {
         return "/tshirt.png";
     }
 
     if (categoryId === 2) {
-        return "/mug.png";
+        if(color)
+            return `/mug_${color}.jpg`;
+        else 
+            return "mug_Blue.jpg"
     }
 
     if (categoryId === 3) {
