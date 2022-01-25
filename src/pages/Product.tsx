@@ -172,6 +172,7 @@ function ProductPage() {
                         </div>
                     </Grid>
                 </Grid>
+                {/* when on button click if the product with selected options exists in the database then we add the product to cart otherwise we have handleOpen to open the info modal  */}
                 <Button variant="contained" startIcon={<AddShoppingCartIcon />} style={{ display: "flex" , margin: "20px"}} onClick={() => selectedProduct[0]?.id ? handleAddToCart(selectedProduct[0]?.id) : handleOpen()}>
                     Add to Cart
                 </Button>
