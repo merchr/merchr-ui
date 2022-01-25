@@ -61,6 +61,7 @@ function Login() {
                         ...user,
                         id,
                         username,
+                        name,
                         email,
                         address,
                         phone,

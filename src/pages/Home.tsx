@@ -33,7 +33,7 @@ function Home() {
                                 Welcome to our merch store
                             </h3>
                             <div className="btnHolder">
-                                {user.id && <Link to="/login">
+                                {!user.id && <Link to="/login">
                                     <button className="btn btn-secondary">
                                         Sign in
                                     </button>

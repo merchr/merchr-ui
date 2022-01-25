@@ -50,7 +50,7 @@ function Signup() {
                 response.json().then((response) => {
                     if (response.error) {
                         setError(
-                            "There was an error creating your account. Please try again."
+                            "This email is already taken."
                         );
 
                         return;
