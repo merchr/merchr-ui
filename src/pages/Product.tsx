@@ -66,6 +66,7 @@ function ProductPage() {
     const [selectedColor, setSelectedColor] = useState("");
     const [selectedSex, setSelectedSex] = useState("");
     const [selectedSize, setSelectedSize] = useState("");
+    const [selectedProduct, setSelectedProduct] = useState<Product[]>([]); 
 
     //filter only products that have the category id equal to the category Id that we get from router state
     const products = data?.data?.filter((item: any) =>
@@ -80,14 +81,16 @@ function ProductPage() {
 
     //map all size data and then filter so we have only unique size 
     const size = products.map(item => item.size?.name).filter((v, i, a) => a.indexOf(v) === i);
-
-    //find the id of selected Product, by filtering products that have the color that is selected, and if the product has size atribute then also filter the product with the size that is slected and if the product has sex atribute filter also the product to have the sex that is selected  
-    const selectedProduct: Product[] = products.filter(item =>  item.color?.name === selectedColor &&  (selectedSize ? (item?.size?.name === selectedSize): true && selectedSex ? (item.sex?.type === selectedSex): true));
-
+    
     //add to cart functionality, setUser with its data and add clicked Item Id in the cart array
     const handleAddToCart = (clickedItemId: any) => {
         setUser({ ...user, cart: [...user.cart, clickedItemId] });
     };
+
+    useEffect(()=>{
+        //find and set to selectedProduct the id of selected Product, by filtering products that have the color that is selected, and if the product has size atribute then also filter the product with the size that is slected and if the product has sex atribute filter also the product to have the sex that is selected  
+       setSelectedProduct(products.filter(item =>  item.color?.name === selectedColor &&  (selectedSize ? (item?.size?.name === selectedSize): true) && (selectedSex ? (item.sex?.type === selectedSex): true)));
+   },[selectedColor, selectedSex, selectedSize])
 
     return (
         <>
