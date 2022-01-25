@@ -42,19 +42,24 @@ const style = {
 };
 
 function ProductPage() {
-    const [cartItems, setCartItems] = useState<number[]>([]);
+    //variables to hold data 
     const [data, setData] = useState<{ data: Product[] }>()
+    //using context
     const { user, setUser } = useContext(UserContext);
 
+    //fetch data 
     useEffect(() => {
         fetch('http://localhost:1337/api/products')
             .then(res => res.json())
             .then(res => setData(res));
     }, []);
 
+    
+    // get categoryId from router state
     const location = useLocation();
     const state = location?.state as { categoryId: number };
     const categoryId = state.categoryId;
+
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -62,16 +67,24 @@ function ProductPage() {
     const [selectedSex, setSelectedSex] = useState("");
     const [selectedSize, setSelectedSize] = useState("");
 
+    //filter only products that have the category id equal to the category Id that we get from router state
     const products = data?.data?.filter((item: any) =>
         item.category.id === categoryId
     ) || [];
 
+    //map all color names and then filter so we have only unique color names
     const colors = products.map(item => item.color?.name).filter((v, i, a) => a.indexOf(v) === i);
+    
+    //map all sex data and then filter them so we have only unique sex data
     const sex = products.map(item => item.sex?.type).filter((v, i, a) => a.indexOf(v) === i);
+
+    //map all size data and then filter so we have only unique size 
     const size = products.map(item => item.size?.name).filter((v, i, a) => a.indexOf(v) === i);
 
+    //find the id of selected Product, by filtering products that have the color that is selected, and if the product has size atribute then also filter the product with the size that is slected and if the product has sex atribute filter also the product to have the sex that is selected  
     const selectedProduct: Product[] = products.filter(item =>  item.color?.name === selectedColor &&  (selectedSize ? (item?.size?.name === selectedSize): true && selectedSex ? (item.sex?.type === selectedSex): true));
 
+    //add to cart functionality, setUser with its data and add clicked Item Id in the cart array
     const handleAddToCart = (clickedItemId: any) => {
         setUser({ ...user, cart: [...user.cart, clickedItemId] });
     };
@@ -119,7 +132,7 @@ function ProductPage() {
                                     ))}
                                 </RadioGroup>
                             </FormControl>
-
+                        {/*  check if the sex array is not empty */}
                             {sex[0] && (
                                 <>
                                     <hr />
@@ -136,7 +149,7 @@ function ProductPage() {
                                     </FormControl>
                                 </>
                             )}
-
+                            {/* check if the size array is not empty since some products don't have size and it can be empty */}
                             {size[0] && (
                                 <>
                                     <hr />

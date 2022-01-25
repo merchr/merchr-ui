@@ -26,6 +26,7 @@ const Cart = ({ addToCart, removeFromCart, isPopover }: Props) => {
   const [cartItems, setCartItems] = useState<Product[]>([]);
 
   useEffect(() => {
+    //setting products that are in cart array in context, in cartItems variable
     let arr = [] as Product[];
     const uniq = data?.data?.map((item) => {
       cartItemIds.map((id: number) => {
@@ -38,8 +39,10 @@ const Cart = ({ addToCart, removeFromCart, isPopover }: Props) => {
     setCartItems(arr);
   }, [user, data]);
 
+  //creating a new multidimensional array where the elements are arrays with two elements: first one is an object of type Product and the second element is the amount
   const productsWithAmount = cartItems.reduce((acc, e) => acc.set(e, (acc.get(e) || 0) + 1), new Map());
-  const productAmountPairs = [...Array.from(productsWithAmount.entries())]; // to get the pairs [element, frequency]
+  // to get the pairs from productsWithAmount where we will have [ product-object , amount-number element],  
+  const productAmountPairs = [...Array.from(productsWithAmount.entries())]; 
 
   const calculateTotal = (items: any[]) =>
     items.reduce((acc, item) => acc + item.category.price ?? 0, 0);

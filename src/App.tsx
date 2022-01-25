@@ -23,10 +23,12 @@ function App() {
     // defines the function to be supplied to other pages to see/edit current logged in user
     const value = useMemo(() => ({ user, setUser }), [user, setUser]);
 
+    //function that adds the clicked item id to the user.cart array 
     const handleAddToCart = (clickedItemId: number) => {
         setUser({ ...user, cart: [...user.cart, clickedItemId] });
     };
 
+    //function to find the the item in the user.cart array and delete that item from the user.cart 
     const handleRemoveFromCart = (id: number) => {
         user.cart.find(
             (item) => item === id && delete user.cart[user.cart.indexOf(item)]

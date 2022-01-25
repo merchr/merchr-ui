@@ -32,12 +32,16 @@ function Navbar() {
     const [open, setOpen] = React.useState<boolean>(false);
 
     const { user, setUser } = useContext(UserContext);
+    
+    //get the length of the cart array, i.e get the number of elements in the cart array in userContext
     const getTotalItems = user.cart.filter((number) => !!number).length;
 
+    //function that adds the clicked item id to the user.cart array 
     const handleAddToCart = (clickedItemId: number) => {
         setUser({ ...user, cart: [...user.cart, clickedItemId] });
     };
 
+    //function to find the the item in the user.cart array and delete that item from the user.cart 
     const handleRemoveFromCart = (id: number) => {
         user.cart.find(
             (item) => item === id && delete user.cart[user.cart.indexOf(item)]

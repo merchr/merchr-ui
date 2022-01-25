@@ -1,8 +1,6 @@
 import { Button } from "@material-ui/core";
 import { getProductImage } from "../util/images";
-import { Product } from "../util/types";
 import { Wrapper } from "./CartItem.styles";
-// import { CartItemType } from "../App";
 
 
 
@@ -16,6 +14,7 @@ const CartItem = ({ productAmountPair, addToCart, removeFromCart }: Props) => {
 
   return (
     <>
+    {/* check if productAmountPair if the first element, i.e product is not empty or undefined then display data for that product */}
       {productAmountPair[0]?.id ? (
         <Wrapper>
           <div>
